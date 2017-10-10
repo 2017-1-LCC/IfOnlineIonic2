@@ -9,28 +9,17 @@ import { UserService } from '../../app/services/user.service';
 })
 
 export class CreateUserPage {
-  
-  username:string;
-  password:string;
-  email:string;
-  name:string;
-  birthDate:Date;
 
+  user:Object={};
 
   constructor(public navCtrl: NavController, private userService:UserService) {
 
   }
 
   create() {
-    const newUser = {
-      username:this.username,
-      password:this.password,
-      email:this.email,
-      name:this.name,
-      birthDate:this.birthDate
-    }
-
-    this.userService.create(newUser);
+    //console.log("user: ",this.user);
+    this.userService.create(this.user)
+      .subscribe(data => console.log(data))
   }
 
   backToLogin() {

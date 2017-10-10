@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 //import { NavController } from 'ionic-angular';
 //import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -7,23 +7,34 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthService {
 
-  http:any;
   baseUrl:string;
 
-  constructor(http:Http) { 
+  constructor(private http:Http) { 
     this.http = http;
-    this.baseUrl = 'https://darkSide:3000/login';
+    this.baseUrl = 'https://ifonline.herokuapp.com/login';
   }
 
-  login(user) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+  login(data) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    /*
+    headers.append("Accept", 'application/json');
+    headers.append('Content-Type', 'application/json' );
+    headers.append('Cache-Control', 'no-cache');
+    headers.append('Access-Control-Allow-Methods','GET, POST');
+    headers.append('Access-Control-Allow-Headers','Content-Type, Accept');
+    headers.append('Access-Control-Max-Age','1728000');
+    */
+    let options = new RequestOptions({ headers: headers });
+    const user = JSON.stringify(data); 
 
-    this.http.post(this.baseUrl,JSON.stringify(user),{headers:headers})
+    this.http.post(this.baseUrl, user, options)
       .map(res => res.json())
       .subscribe(data => {
-        console.log(data);
-      })
+        console.log("data",data);
+       }, error => {
+        console.log(error);// Error getting the data
+      });
+
   }
 
 /*
