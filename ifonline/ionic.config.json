@@ -2,5 +2,11 @@
   "name": "ifonline",
   "app_id": "",
   "integrations": {},
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "proxies": [
+    {
+        "path": "/user",
+        "proxyUrl": "http://darkSide:3000/user"
+    }
+  ]
 }

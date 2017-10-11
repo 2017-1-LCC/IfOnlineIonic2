@@ -12,14 +12,17 @@ export class CreateUserPage {
 
   user:Object={};
 
-  constructor(public navCtrl: NavController, private userService:UserService) {
+  constructor(public navCtrl: NavController, public userService:UserService) {
 
   }
 
   create() {
-    //console.log("user: ",this.user);
     this.userService.create(this.user)
-      .subscribe(data => console.log(data))
+      .then((result) => {
+        console.log("resultado: ",result);
+      }, (err) => {
+        console.log("error: ",err);
+      })
   }
 
   backToLogin() {
