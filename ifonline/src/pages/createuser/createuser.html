@@ -7,7 +7,7 @@
     <ion-col></ion-col>
   </ion-row>
   <div class="login-box">
-    <form #createUserForm="ngForm">
+    <form #loginForm="ngForm">
       <ion-row>
         <ion-col>
           <ion-list>
@@ -43,7 +43,7 @@
       
       <ion-row>
         <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full (click)="create()" >Cadastrar</button>
+          <button ion-button class="submit-btn" full (click)="create()" [disabled]="!loginForm.form.valid">Cadastrar</button>
           <button ion-button class="register-btn" block clear (click)="backToLogin()">Voltar</button>
         </ion-col>
       </ion-row>

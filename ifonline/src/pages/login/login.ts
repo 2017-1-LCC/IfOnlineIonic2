@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { CreateUserPage } from '../createuser/createuser';
+import { TabsPage } from '../tabs/tabs';
 import { AuthService } from '../../app/services/auth.service';
  
 @Component({
@@ -9,25 +10,23 @@ import { AuthService } from '../../app/services/auth.service';
 })
 
 export class LoginPage {
-  
-  username:string;
-  password:string;
+
+  user:Object={};
 
   constructor(public navCtrl: NavController, private authService:AuthService) {
 
   }
 
   login() {
-    const user = {
-      username:this.username,
-      password:this.password
-    };
-
-    this.authService.login(user);
+    this.authService.login(this.user)
+      .then((result) => {
+        this.navCtrl.push(TabsPage, result);
+      }, (err) => {
+        console.log("erro ao logar: ",err);
+      })
   }
 
   newUser() {
-   //console.log("executei");
    this.navCtrl.push(CreateUserPage);
   }
 }

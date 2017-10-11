@@ -13,6 +13,7 @@ import { CreateUserPage } from '../pages/createuser/createuser';
 
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
+import { ProfileService } from './services/profile.service'; 
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -47,6 +48,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SplashScreen,
     AuthService,
     UserService,
+    ProfileService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
