@@ -1,0 +1,48 @@
+<ion-content class="login-content" padding>
+  <ion-row class="logo-row">
+    <ion-col></ion-col>
+    <ion-col width-67>
+      <img src="http://placehold.it/300x200"/>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+  <div class="login-box">
+    <form #newGroupForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list>
+
+            <ion-item>
+              <ion-label stacked>Disciplina: </ion-label>
+              <ion-input type="text" [(ngModel)]="group.discipline" name="disciple" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label stacked>Turma</ion-label>
+              <ion-input type="text" [(ngModel)]="group.academicClass" name="academicClass" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Inicício da Disciplina</ion-label>
+              <ion-datetime displayFormat="YYYY MM DD" pickerFormat="DD MM YYYY" [(ngModel)]="group.dateStart" name="dateStart" required></ion-datetime>
+            </ion-item>
+            
+            <ion-item>
+              <ion-label>Encerramento da Disciplina</ion-label>
+              <ion-datetime displayFormat="YYYY MM DD" pickerFormat="DD MM YYYY" [(ngModel)]="group.dateEnd" name="dateEnd" required></ion-datetime>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full (click)="create()" [disabled]="!newGroupForm.form.valid">Cadastrar</button>
+          <button ion-button class="register-btn" block clear (click)="backToProfile()">Voltar</button>
+        </ion-col>
+      </ion-row>
+      
+    </form>
+  </div>
+</ion-content>

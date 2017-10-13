@@ -9,11 +9,14 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { GroupsPage } from '../pages/groups/groups';
 import { CreateUserPage } from '../pages/createuser/createuser';
+import { CreateGroupPage } from '../pages/creategroup/creategroup';
 
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { ProfileService } from './services/profile.service'; 
+import { GroupService } from './services/groups.service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,7 +29,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     TabsPage,
     LoginPage,
-    CreateUserPage
+    CreateUserPage,
+    GroupsPage,
+    CreateGroupPage
   ],
   imports: [
     HttpModule,
@@ -41,7 +46,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     TabsPage,
     LoginPage,
-    CreateUserPage
+    CreateUserPage,
+    GroupsPage,
+    CreateGroupPage
   ],
   providers: [
     StatusBar,
@@ -49,6 +56,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AuthService,
     UserService,
     ProfileService,
+    GroupService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
