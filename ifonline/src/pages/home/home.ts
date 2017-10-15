@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController , NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
+import { Storage } from "@ionic/storage";
+
 import { ProfileService } from '../../app/services/profile.service';
 import { CreateGroupPage } from '../creategroup/creategroup';
+import { SelectedGroupPage } from '../selectedgroup/selectedgroup';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -9,31 +13,60 @@ import { CreateGroupPage } from '../creategroup/creategroup';
 })
 export class HomePage {
 
-  userDetails:Object={};
-  loggedUser:Object={user:{}};
-  isTeacher:boolean=false;
-  info:any={_id:'',token:''}
+  loggedUser:any={_id:'', username:'', user:{typeUser:''}, groups:[]};
+  token:string;
+  
 
-  constructor(public navCtrl: NavController, public navParams:NavParams, public profileService:ProfileService) {
-    this.userDetails = this.navParams.data;
-    this.info.token = this.navParams.data.token;
-    if(this.navParams.data.typeUser === 'TEACHER') {
-      this.isTeacher = true;
-    } 
+  constructor(private navCtrl: NavController, private profileService:ProfileService,
+    private storage: Storage) {
+      //this.ngOnInit();
+     // this.loadProfile(this.token);
+  }
+
+  ionViewDidLoad() {
+    //this.ngOnInit();
   }
 
   ngOnInit() {
-    this.profileService.loadProfile(this.userDetails)
+    this.storage.get('token')
+      .then((token) => {
+        this.token = token;
+        this.loadProfile(this.token);
+        console.log("load profile...");
+      })
+      .catch( err => {
+        console.log("erro no ngOnInit(): ",err);
+      })
+  }
+
+  loadProfile(token) {
+    this.profileService.loadProfile(token)
       .then(result => {
-        this.info._id = result._id;
         this.loggedUser = result;
       }, err => {
+        this.storage.remove('token');
+        this.loggedUser = null;
+        this.navCtrl.push(LoginPage);
         console.log("erro ao carregar profile: ",err);
       })
   }
 
+  selectGroup(group) {
+    //console.log("grupo selecionado em home: ",group._id);
+    this.navCtrl.push(SelectedGroupPage,{
+      idGroup:group._id,
+      idLoggedUser:this.loggedUser._id,
+    });
+  }
+
+  logout() {
+    this.storage.remove('token');
+    //this.loggedUser = null;
+    this.navCtrl.setRoot(LoginPage);
+  }
+
   newGroup() {
-    this.navCtrl.push(CreateGroupPage,this.info);
+    this.navCtrl.push(CreateGroupPage,this.loggedUser._id);
   }
 
 }

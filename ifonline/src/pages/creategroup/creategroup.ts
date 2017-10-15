@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController , NavParams, AlertController } from 'ionic-angular';
+import { Storage } from "@ionic/storage";
 import { GroupService } from '../../app/services/groups.service';
+import { GroupsPage } from '../groups/groups';
+import { HomePage } from '../home/home';
 
 @Component({
   selector: 'create-group',
@@ -9,30 +12,37 @@ import { GroupService } from '../../app/services/groups.service';
 export class CreateGroupPage {
 
   group:any={admin:{}};
-  id:string;
+  idAdmin:string;
   token:string;
 
-  constructor(public alert:AlertController, public navCtrl: NavController, public navParams:NavParams, public groupService:GroupService) {
-    this.id = this.navParams.data._id;
-    this.token = this.navParams.data.token;
+  constructor(private alert:AlertController, private navCtrl: NavController, 
+    private navParams:NavParams, private groupService:GroupService,
+    private storage: Storage) {
+    this.idAdmin = this.navParams.data;
+  }
+
+  ngOnInit() {
+    this.storage.get('token')
+      .then((token) => {
+        this.token = token;
+      })
+      .catch( err => {
+        console.log("erro no ngOnInit(): ",err);
+      })
   }
 
 
   create() {
-   this.group.admin = this.id;
+   this.group.admin = this.idAdmin;
    
     this.groupService.createGroup(this.token, this.group)
       .then( result => {
         this.presentAlert(result.discipline);
-        this.navCtrl.pop();
+        this.navCtrl.setRoot(HomePage);
         console.log("grupo cadastrado com sucesso!:",result);
       }, err => {
         console.log("erro ao cadastrar grupo: ",err);
       })
-  }
-
-  backToProfile() {
-    this.navCtrl.pop();
   }
 
   presentAlert(name) {

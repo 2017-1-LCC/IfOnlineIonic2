@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Grupo Selecionado</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid style="background-color: cornflowerblue; height:25%; color:white">
+    <ion-row justify-content-center align-itens-center>
+      admin: {{isOwner}}
+    </ion-row>
+    <ion-row justify-content-center align-items-center>
+        <h4>{{group.discipline}}</h4>
+    </ion-row>
+    <ion-row justify-content-center align-items-center>
+        <p>{{group.academicClass}}</p>
+    </ion-row>
+    <ion-row justify-content-center align-items-center>
+        <ion-icon name="heart"></ion-icon> {{2+2}}
+    </ion-row>
+
+    <ion-row justify-content-center align-items-center *ngIf="!isMember">
+      <button ion-button color="secondary" full (click)="addStudent()" >Participar</button>
+    </ion-row>
+  
+    <ion-row justify-content-center align-items-center *ngIf="isMember">
+      <button ion-button color="danger" full (click)="removeStudent()" >Sair</button>
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-grid>
+    <ion-list-header>
+      Provas 
+      <button ion-button icon-only (click)="addProva()">  
+        <ion-icon name="add"></ion-icon> 
+      </button>
+    </ion-list-header>
+    <ion-list>
+      <ion-item *ngFor="let proof of group.proof" (click)="selectGroup(group)">
+        <ion-avatar item-start>
+          <img src="http://placehold.it/100x100">
+        </ion-avatar>
+        <h2>{{group.dateProof}}</h2>
+        <p>{{group.subjects}}</p>
+        <ion-icon name="heart"></ion-icon>{{group.value}}
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+
+    <ion-grid>
+    <ion-list-header>
+      Alunos
+    </ion-list-header>
+    <ion-list>
+      <ion-item *ngFor="let student of group.students" (click)="selectGroup(group)">
+        <ion-avatar item-start>
+          <img src="http://placehold.it/100x100">
+        </ion-avatar>
+        <h2>{{student.name}}</h2>
+        <p>{{group.email}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+
+</ion-content>

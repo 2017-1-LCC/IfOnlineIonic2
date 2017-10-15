@@ -1,3 +1,9 @@
+<ion-header>
+  <ion-navbar align-title="center">
+    <ion-title>Cadastrar Grupo</ion-title>
+  </ion-navbar>
+</ion-header>
+
 <ion-content class="login-content" padding>
   <ion-row class="logo-row">
     <ion-col></ion-col>
@@ -13,23 +19,23 @@
           <ion-list>
 
             <ion-item>
-              <ion-label stacked>Disciplina: </ion-label>
+              <ion-label floating>Disciplina: </ion-label>
               <ion-input type="text" [(ngModel)]="group.discipline" name="disciple" required></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-label stacked>Turma</ion-label>
+              <ion-label floating>Turma</ion-label>
               <ion-input type="text" [(ngModel)]="group.academicClass" name="academicClass" required></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-label>Inicício da Disciplina</ion-label>
-              <ion-datetime displayFormat="YYYY MM DD" pickerFormat="DD MM YYYY" [(ngModel)]="group.dateStart" name="dateStart" required></ion-datetime>
+              <ion-label floating>Inicício da Disciplina</ion-label>
+              <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="group.dateStart" name="dateStart" required></ion-datetime>
             </ion-item>
             
             <ion-item>
-              <ion-label>Encerramento da Disciplina</ion-label>
-              <ion-datetime displayFormat="YYYY MM DD" pickerFormat="DD MM YYYY" [(ngModel)]="group.dateEnd" name="dateEnd" required></ion-datetime>
+              <ion-label floating>Encerramento da Disciplina</ion-label>
+              <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="group.dateEnd" name="dateEnd" required></ion-datetime>
             </ion-item>
 
           </ion-list>
@@ -39,7 +45,6 @@
       <ion-row>
         <ion-col class="signup-col">
           <button ion-button class="submit-btn" full (click)="create()" [disabled]="!newGroupForm.form.valid">Cadastrar</button>
-          <button ion-button class="register-btn" block clear (click)="backToProfile()">Voltar</button>
         </ion-col>
       </ion-row>
       

@@ -11,6 +11,7 @@ import { UserService } from '../../app/services/user.service';
 export class CreateUserPage {
 
   user:Object={};
+  createdUser:any={name:''};
 
   constructor(public navCtrl: NavController, public userService:UserService, public alert:AlertController ) {
 
@@ -19,18 +20,13 @@ export class CreateUserPage {
   create() {
     this.userService.create(this.user)
       .then((result) => {
-        this.presentAlert(result.name);
+        this.createdUser = result;
+        this.presentAlert(this.createdUser.name);
         this.navCtrl.push(LoginPage);
-        console.log("resultado: ",result);
       }, (err) => {
         console.log("error: ",err);
       })
   }
-
-  backToLogin() {
-    this.navCtrl.push(LoginPage);
-  }
-
 
   presentAlert(name) {
     const alert = this.alert.create({

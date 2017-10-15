@@ -1,26 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
+import { JwtHelper } from "angular2-jwt";
 import 'rxjs';
 
 @Injectable()
 export class ProfileService {
 
     baseUrl:string;
+    typeUser:string;
+    idUser:string;
+    jwtHelper = new JwtHelper();
 
     constructor(public http:Http) {
 
     }
 
-    loadProfile(user) {
+    loadProfile(token) {
         let headers = new Headers();
-        let token = 'Bearer '+user.token;
-        headers.append('Authorization',token);
+        headers.append('Authorization','Bearer '+token);
+
         let options = new RequestOptions({ headers: headers });
 
-        if(user.typeUser === 'TEACHER') {
-            this.baseUrl = 'http://localhost:3000/findteacherbyuser/'+user.idUser;
+        this.typeUser = this.jwtHelper.decodeToken(token).typeUser;
+        this.idUser = this.jwtHelper.decodeToken(token).idUser;
+
+        if(this.typeUser === 'TEACHER') {
+            this.baseUrl = 'http://localhost:3000/findteacherbyuser/'+this.idUser;
         } else {
-            this.baseUrl = 'http://localhost:3000/findstudentbyuser/'+user.idUser;
+            this.baseUrl = 'http://localhost:3000/findstudentbyuser/'+this.idUser;
         }
 
         return new Promise((resolve, reject) => {

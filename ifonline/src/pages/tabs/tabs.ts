@@ -15,9 +15,9 @@ export class TabsPage {
   tab1Root:any = HomePage;
   tab2Root:any = GroupsPage;
   tab3Root:any = AboutPage;
-  userDetails:Object = {};
 
-  constructor(public navParams:NavParams) {
-    this.userDetails = this.navParams.data;
+
+  constructor(navParams:NavParams) {
+    //this.mySelectedIndex = navParams.data.tabIndex || 0;
   }
 }

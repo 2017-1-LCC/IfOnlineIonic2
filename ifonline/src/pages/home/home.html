@@ -30,9 +30,15 @@
     </ion-row>
   </ion-grid>
   
-  <ion-grid *ngIf="isTeacher">
+  <ion-grid *ngIf="loggedUser.user.typeUser === 'TEACHER'">
     <ion-row justify-content-center align-items-center>
        <button ion-button class="submit-btn" full (click)="newGroup()">Novo Grupo</button>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row justify-content-center align-items-center>
+      <button ion-button color="danger" full (click)="logout()" >Sair</button>
     </ion-row>
   </ion-grid>
 
@@ -41,12 +47,12 @@
       Groups
     </ion-list-header>
     <ion-list>
-      <ion-item *ngFor="let group of loggedUser.groups">
+      <ion-item *ngFor="let group of loggedUser.groups" (click)="selectGroup(group)">
         <ion-avatar item-start>
           <img src="assets/imgs/sobre.png">
         </ion-avatar>
-        <h2>Cher</h2>
-        <p>Ugh. As if.</p>
+        <h2>{{group.discipline}}</h2>
+        <p>{{group.academicClass}}</p>
       </ion-item>
     </ion-list>
   </ion-grid>

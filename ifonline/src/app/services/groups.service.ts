@@ -8,7 +8,22 @@ export class GroupService {
   baseUrl:string;
 
   constructor(public http:Http) {
-    this.baseUrl = 'http://localhost:3000/studygroup';
+    this.baseUrl = 'http://localhost:3000/';
+  }
+
+  loadFullInformationGroup(token, idGroup) {  
+    let headers = new Headers();
+    headers.append('Authorization','Bearer '+token);
+    let options = new RequestOptions({ headers: headers });
+    return new Promise( ( resolve, reject ) => {
+      this.http.get(this.baseUrl+'findallinfogroup/'+idGroup, options)
+        .map(res => res.json())
+        .subscribe( data => {
+          resolve(data);
+        }, err => {
+          reject(err);
+        })
+    })
   }
 
   loadGroups(data) {
@@ -17,7 +32,7 @@ export class GroupService {
     headers.append('Authorization',token);
     let options = new RequestOptions({ headers: headers });
     return new Promise( ( resolve, reject ) => {
-      this.http.get(this.baseUrl, options)
+      this.http.get(this.baseUrl+'studygroup', options)
         .map(res => res.json())
         .subscribe( data => {
           resolve(data);
@@ -39,7 +54,7 @@ export class GroupService {
     const group = JSON.stringify(data);
 
     return new Promise(( resolve, reject ) => {
-      this.http.post(this.baseUrl, group, options)
+      this.http.post(this.baseUrl+'studygroup', group, options)
         .map( res => res.json())
         .subscribe( data => {
           resolve(data);
@@ -48,4 +63,40 @@ export class GroupService {
         })
     })
   }
+
+  addStudent(token, idStudent, idGroup) {
+    let headers = new Headers();
+    headers.append('Authorization','Bearer '+token);
+    //headers.append('Accept','application/json');
+    //headers.append('Content-Type','application/json; charset=UTF-8');
+    let options = new RequestOptions({ headers: headers });
+
+    return new Promise(( resolve, reject ) => {
+      this.http.post(this.baseUrl+'add/'+idStudent+'/ingroup/'+idGroup,null,options)
+        .map( res => res.json())
+        .subscribe( data => {
+          resolve(data);
+        }, err => {
+          reject(err);
+        })
+    })
+  }
+
+  removeStudent(token, idStudent, idGroup) {
+    let headers = new Headers();
+    headers.append('Authorization','Bearer '+token);
+
+    let options = new RequestOptions({ headers: headers });
+
+    return new Promise(( resolve, reject ) => {
+      this.http.post(this.baseUrl+'remove/'+idStudent+'/ingroup/'+idGroup,null,options)
+        .map( res => res.json())
+        .subscribe( data => {
+          resolve(data);
+        }, err => {
+          reject(err);
+        })
+    })
+  }
+
 }
