@@ -8,13 +8,18 @@ export class GroupService {
   baseUrl:string;
 
   constructor(public http:Http) {
-    this.baseUrl = 'http://localhost:3000/';
+    this.baseUrl = 'https://ifonline.herokuapp.com/';
   }
 
   loadFullInformationGroup(token, idGroup) {  
     let headers = new Headers();
     headers.append('Authorization','Bearer '+token);
     let options = new RequestOptions({ headers: headers });
+
+    return this.http.get(this.baseUrl+'findallinfogroup/'+idGroup, options)
+            .map(res => res.json())
+
+    /*
     return new Promise( ( resolve, reject ) => {
       this.http.get(this.baseUrl+'findallinfogroup/'+idGroup, options)
         .map(res => res.json())
@@ -24,6 +29,7 @@ export class GroupService {
           reject(err);
         })
     })
+    */
   }
 
   loadGroups(data) {
@@ -31,6 +37,9 @@ export class GroupService {
     let token = 'Bearer '+data;
     headers.append('Authorization',token);
     let options = new RequestOptions({ headers: headers });
+    return this.http.get(this.baseUrl+'studygroup', options)
+              .map(res => res.json())
+    /*
     return new Promise( ( resolve, reject ) => {
       this.http.get(this.baseUrl+'studygroup', options)
         .map(res => res.json())
@@ -40,7 +49,7 @@ export class GroupService {
           reject(err);
         })
     })
-      
+    */
   }
 
   createGroup(token, data) {
@@ -53,6 +62,10 @@ export class GroupService {
 
     const group = JSON.stringify(data);
 
+    return this.http.post(this.baseUrl+'studygroup', group, options)
+            .map( res => res.json())
+
+    /*
     return new Promise(( resolve, reject ) => {
       this.http.post(this.baseUrl+'studygroup', group, options)
         .map( res => res.json())
@@ -62,6 +75,7 @@ export class GroupService {
           reject(err);
         })
     })
+    */
   }
 
   addStudent(token, idStudent, idGroup) {
@@ -71,6 +85,11 @@ export class GroupService {
     //headers.append('Content-Type','application/json; charset=UTF-8');
     let options = new RequestOptions({ headers: headers });
 
+    return this.http.post(this.baseUrl+'add/'+idStudent+'/ingroup/'+idGroup,null,options)
+              .map( res => res.json())
+
+
+    /*
     return new Promise(( resolve, reject ) => {
       this.http.post(this.baseUrl+'add/'+idStudent+'/ingroup/'+idGroup,null,options)
         .map( res => res.json())
@@ -80,14 +99,18 @@ export class GroupService {
           reject(err);
         })
     })
+    */
   }
 
   removeStudent(token, idStudent, idGroup) {
     let headers = new Headers();
     headers.append('Authorization','Bearer '+token);
-
     let options = new RequestOptions({ headers: headers });
 
+    return this.http.post(this.baseUrl+'remove/'+idStudent+'/ingroup/'+idGroup,null,options)
+            .map( res => res.json())
+
+    /*
     return new Promise(( resolve, reject ) => {
       this.http.post(this.baseUrl+'remove/'+idStudent+'/ingroup/'+idGroup,null,options)
         .map( res => res.json())
@@ -97,6 +120,7 @@ export class GroupService {
           reject(err);
         })
     })
+    */
   }
 
 }

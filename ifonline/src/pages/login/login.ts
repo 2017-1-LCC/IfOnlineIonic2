@@ -19,24 +19,24 @@ export class LoginPage {
   constructor(private navCtrl: NavController, private authService:AuthService, 
     public alertCtrl: AlertController, public loadingCtrl:LoadingController, private storage:Storage) {
   
-      storage.ready()
-        .then(() => {
-          storage.get('token')
-            .then( token => {
-              if(token) {
-                this.navCtrl.setRoot(TabsPage,token);
-              } 
-              console.log("storage ready() token: ",token);
-            })
-            .catch( err => {
-              console.log("erro no storage ready: ",err);
-            })
-        })
+    storage.ready()
+      .then(() => {
+        storage.get('token')
+          .then( token => {
+            if(token) {
+              this.navCtrl.setRoot(TabsPage,token);
+            } 
+            console.log("storage ready() token: ",token);
+          })
+          .catch( err => {
+            console.log("erro no storage ready: ",err);
+          })
+      })
   }
 
   login() {
     this.authService.login(this.user)
-      .then(
+      .subscribe(
         result => this.authSuccess(result.token) , 
         err => console.log("erro ao logar: ",err)
       )
@@ -48,9 +48,9 @@ export class LoginPage {
 
   authSuccess(token) {
     this.storage.set('token',token);
-    this.storage.set('typeUser',this.jwtHelper.decodeToken(token).typeUser);
-    this.storage.set('idUser',this.jwtHelper.decodeToken(token).idUser);
-    this.navCtrl.push(TabsPage);
+    //this.storage.set('typeUser',this.jwtHelper.decodeToken(token).typeUser);
+    //this.storage.set('idUser',this.jwtHelper.decodeToken(token).idUser);
+    this.navCtrl.setRoot(TabsPage);
   }
 
   presentAlert() {
@@ -69,5 +69,7 @@ export class LoginPage {
     });
     loader.present();
   }
-
+// cleziel 11ec
+// hc3 ea43
+// tata 1177
 }

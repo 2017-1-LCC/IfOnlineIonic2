@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { GroupService } from '../../app/services/groups.service';
 import { ProfileService } from '../../app/services/profile.service';
 import { Storage } from "@ionic/storage";
-import { SelectedOneGroupPage } from '../selectedgroup/selectedOneGroup';
+import { SelectedGroupPage } from '../selectedgroup/selectedgroup';
 import { LoginPage } from '../login/login';
 
 @Component({
@@ -16,14 +16,14 @@ export class GroupsPage {
   token:string;
   groups:any=[];
 
-  constructor(private navCtrl: NavController, private navParams: NavParams, 
-    private groupsService: GroupService, private storage: Storage,
-      private profileService: ProfileService) {
+  constructor(
+    private navCtrl: NavController, 
+    private groupsService: GroupService, 
+    private storage: Storage,
+    private profileService: ProfileService
+  ) 
+  {
 
-  }
-
-  ionViewDidLoad() {
-    this.ngOnInit();
   }
 
   ngOnInit() {
@@ -39,7 +39,7 @@ export class GroupsPage {
   }
 
   selectGroup(group) {
-    this.navCtrl.push(SelectedOneGroupPage,{
+    this.navCtrl.push(SelectedGroupPage,{
       idGroup:group._id,
       idLoggedUser:this.loggedUser._id,
     });
@@ -47,7 +47,7 @@ export class GroupsPage {
 
   loadGroups(token) {
     this.groupsService.loadGroups(token)
-      .then(result => {
+      .subscribe(result => {
         this.groups = result;
       }, err => {
         console.log("deu erro no groups: ",err);
@@ -56,7 +56,7 @@ export class GroupsPage {
 
   loadProfile(token) {
     this.profileService.loadProfile(token)
-      .then(result => {
+      .subscribe(result => {
         this.loggedUser = result;
       }, err => {
         this.storage.remove('token');

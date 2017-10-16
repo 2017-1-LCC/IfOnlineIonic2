@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Tabs } from 'ionic-angular';
+import { NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { GroupService } from '../../app/services/groups.service';
-import { HomePage } from '../home/home'; 
 
 @Component({
   selector:'selected-group',
@@ -18,8 +17,12 @@ export class SelectedGroupPage {
   isMember:boolean=false;
   token:string;
 
-  constructor(private navCtrl: NavController, private navParams: NavParams, 
-    private groupService: GroupService, private storage:Storage) {
+  constructor(
+    private navParams: NavParams,
+    private groupService: GroupService, 
+    private storage:Storage,
+  ) 
+  {
       
   }
 
@@ -38,7 +41,7 @@ export class SelectedGroupPage {
 
   loadGroup(token, idGroup, idLoggedUser) {
     this.groupService.loadFullInformationGroup(this.token,idGroup)
-      .then(result => {
+      .subscribe(result => {
 
         if(result.admin._id === idLoggedUser) {
           this.group = result;
@@ -65,8 +68,8 @@ export class SelectedGroupPage {
 
   addStudent() {
     this.groupService.addStudent(this.token,this.idLoggedUser,this.idGroup)
-      .then(result => {
-        this.navCtrl.push(HomePage);
+      .subscribe(result => {
+        this.loadGroup(this.token,this.idGroup,this.idLoggedUser);
       }, err => {
         console.log("erro ao entrar no grupo: ",err);
       })
@@ -74,16 +77,11 @@ export class SelectedGroupPage {
 
   removeStudent() {
     this.groupService.removeStudent(this.token,this.idLoggedUser,this.idGroup)
-      .then(result => {
-        this.navCtrl.push(HomePage);
+      .subscribe(result => {
+        this.loadGroup(this.token,this.idGroup,this.idLoggedUser);
       }, err => {
         console.log("erro ao entrar no grupo: ",err);
       })
-  }
-
-  selectTab(index: number) {
-      var t: Tabs = this.navCtrl.parent;
-      t.select(index);
   }
 
   addProva() {

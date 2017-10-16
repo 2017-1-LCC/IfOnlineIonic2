@@ -25,11 +25,14 @@ export class ProfileService {
         this.idUser = this.jwtHelper.decodeToken(token).idUser;
 
         if(this.typeUser === 'TEACHER') {
-            this.baseUrl = 'http://localhost:3000/findteacherbyuser/'+this.idUser;
+            this.baseUrl = 'https://ifonline.herokuapp.com/findteacherbyuser/'+this.idUser;
         } else {
-            this.baseUrl = 'http://localhost:3000/findstudentbyuser/'+this.idUser;
+            this.baseUrl = 'https://ifonline.herokuapp.com/findstudentbyuser/'+this.idUser;
         }
+        return this.http.get(this.baseUrl, options)
+            .map(res => res.json())
 
+        /*
         return new Promise((resolve, reject) => {
             this.http.get(this.baseUrl, options)
                 .map(res => res.json())
@@ -39,5 +42,6 @@ export class ProfileService {
                     reject(err);
                 })
         })
+        */
     }
 }

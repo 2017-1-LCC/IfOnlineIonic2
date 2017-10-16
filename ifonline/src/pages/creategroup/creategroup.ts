@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController , NavParams, AlertController } from 'ionic-angular';
 import { Storage } from "@ionic/storage";
 import { GroupService } from '../../app/services/groups.service';
-import { GroupsPage } from '../groups/groups';
 import { HomePage } from '../home/home';
 
 @Component({
@@ -36,7 +35,7 @@ export class CreateGroupPage {
    this.group.admin = this.idAdmin;
    
     this.groupService.createGroup(this.token, this.group)
-      .then( result => {
+      .subscribe( result => {
         this.presentAlert(result.discipline);
         this.navCtrl.setRoot(HomePage);
         console.log("grupo cadastrado com sucesso!:",result);

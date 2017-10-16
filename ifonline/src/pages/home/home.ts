@@ -15,18 +15,28 @@ export class HomePage {
 
   loggedUser:any={_id:'', username:'', user:{typeUser:''}, groups:[]};
   token:string;
-  
 
   constructor(private navCtrl: NavController, private profileService:ProfileService,
     private storage: Storage) {
-      //this.ngOnInit();
-     // this.loadProfile(this.token);
+      //this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 
-  ionViewDidLoad() {
-    //this.ngOnInit();
+  ionViewDidEnter() {
+    console.log("entrei na view");
   }
 
+  ionViewWillEnter() {
+    this.storage.get('token')
+      .then((token) => {
+        this.token = token;
+        this.loadProfile(this.token);
+        console.log("load profile...");
+      })
+      .catch( err => {
+        console.log("erro no ngOnInit(): ",err);
+      })
+  }
+/*
   ngOnInit() {
     this.storage.get('token')
       .then((token) => {
@@ -38,10 +48,10 @@ export class HomePage {
         console.log("erro no ngOnInit(): ",err);
       })
   }
-
+*/
   loadProfile(token) {
     this.profileService.loadProfile(token)
-      .then(result => {
+      .subscribe(result => {
         this.loggedUser = result;
       }, err => {
         this.storage.remove('token');
@@ -52,7 +62,6 @@ export class HomePage {
   }
 
   selectGroup(group) {
-    //console.log("grupo selecionado em home: ",group._id);
     this.navCtrl.push(SelectedGroupPage,{
       idGroup:group._id,
       idLoggedUser:this.loggedUser._id,
@@ -61,7 +70,8 @@ export class HomePage {
 
   logout() {
     this.storage.remove('token');
-    //this.loggedUser = null;
+    this.loggedUser = {_id:'', username:'', user:{typeUser:''}, groups:[]};
+    this.token = null;
     this.navCtrl.setRoot(LoginPage);
   }
 

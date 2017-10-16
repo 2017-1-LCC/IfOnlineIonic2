@@ -16,8 +16,8 @@ export class TabsPage {
   tab2Root:any = GroupsPage;
   tab3Root:any = AboutPage;
 
-
   constructor(navParams:NavParams) {
-    //this.mySelectedIndex = navParams.data.tabIndex || 0;
+    
   }
+
 }

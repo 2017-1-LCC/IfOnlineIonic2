@@ -8,7 +8,7 @@ export class UserService {
   baseUrl:string;
 
   constructor(public http:Http) {
-    this.baseUrl = 'http://localhost:3000/user';
+    this.baseUrl = 'https://ifonline.herokuapp.com/user';
   }
 
   create(data) {
