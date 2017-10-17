@@ -11,11 +11,11 @@ import { GroupService } from '../../app/services/groups.service';
 export class SelectedGroupPage {
 
   group:any={admin:{},proof:[],students:[]};
-  idGroup:string;
-  idLoggedUser:string;
+  idGroup:string='';
+  idLoggedUser:string='';
   isOwner:boolean=false;
   isMember:boolean=false;
-  token:string;
+  token:string='';
 
   constructor(
     private navParams: NavParams,
@@ -32,18 +32,18 @@ export class SelectedGroupPage {
         this.token = token;
         this.idGroup = this.navParams.data.idGroup;
         this.idLoggedUser = this.navParams.data.idLoggedUser;
-        this.loadGroup(this.token,this.idGroup,this.idLoggedUser);
+        this.loadGroup();
       })
       .catch( err => {
         console.log("erro no ngOnInit(): ",err);
       })
   }
 
-  loadGroup(token, idGroup, idLoggedUser) {
-    this.groupService.loadFullInformationGroup(this.token,idGroup)
+  loadGroup() {
+    this.groupService.loadFullInformationGroup(this.token,this.idGroup)
       .subscribe(result => {
 
-        if(result.admin._id === idLoggedUser) {
+        if(result.admin._id === this.idLoggedUser) {
           this.group = result;
           this.isOwner = true;
         } else {
@@ -51,7 +51,7 @@ export class SelectedGroupPage {
           this.isOwner = false;
         }
 
-        const data = result.students.map( el => el._id === idLoggedUser);
+        const data = result.students.filter( el => el._id === this.idLoggedUser);
 
         if(data.length) {
           this.isMember = true;
@@ -69,7 +69,7 @@ export class SelectedGroupPage {
   addStudent() {
     this.groupService.addStudent(this.token,this.idLoggedUser,this.idGroup)
       .subscribe(result => {
-        this.loadGroup(this.token,this.idGroup,this.idLoggedUser);
+        this.loadGroup();
       }, err => {
         console.log("erro ao entrar no grupo: ",err);
       })
@@ -78,7 +78,7 @@ export class SelectedGroupPage {
   removeStudent() {
     this.groupService.removeStudent(this.token,this.idLoggedUser,this.idGroup)
       .subscribe(result => {
-        this.loadGroup(this.token,this.idGroup,this.idLoggedUser);
+        this.loadGroup();
       }, err => {
         console.log("erro ao entrar no grupo: ",err);
       })

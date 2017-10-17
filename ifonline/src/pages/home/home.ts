@@ -18,39 +18,23 @@ export class HomePage {
 
   constructor(private navCtrl: NavController, private profileService:ProfileService,
     private storage: Storage) {
-      //this.navCtrl.setRoot(this.navCtrl.getActive().component);
-  }
 
-  ionViewDidEnter() {
-    console.log("entrei na view");
   }
 
   ionViewWillEnter() {
     this.storage.get('token')
       .then((token) => {
         this.token = token;
-        this.loadProfile(this.token);
+        this.loadProfile();
         console.log("load profile...");
       })
       .catch( err => {
         console.log("erro no ngOnInit(): ",err);
       })
   }
-/*
-  ngOnInit() {
-    this.storage.get('token')
-      .then((token) => {
-        this.token = token;
-        this.loadProfile(this.token);
-        console.log("load profile...");
-      })
-      .catch( err => {
-        console.log("erro no ngOnInit(): ",err);
-      })
-  }
-*/
-  loadProfile(token) {
-    this.profileService.loadProfile(token)
+
+  loadProfile() {
+    this.profileService.loadProfile(this.token)
       .subscribe(result => {
         this.loggedUser = result;
       }, err => {

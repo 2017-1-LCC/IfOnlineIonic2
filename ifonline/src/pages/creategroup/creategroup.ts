@@ -13,6 +13,7 @@ export class CreateGroupPage {
   group:any={admin:{}};
   idAdmin:string;
   token:string;
+  
 
   constructor(private alert:AlertController, private navCtrl: NavController, 
     private navParams:NavParams, private groupService:GroupService,

@@ -13,7 +13,7 @@ import { LoginPage } from '../login/login';
 export class GroupsPage {
 
   loggedUser:any={_id:'', username:'', user:{typeUser:''}, groups:[]};
-  token:string;
+  token:string='';
   groups:any=[];
 
   constructor(
@@ -30,8 +30,8 @@ export class GroupsPage {
     this.storage.get('token')
       .then((token) => {
         this.token = token;
-        this.loadGroups(this.token);
-        this.loadProfile(this.token); 
+        this.loadGroups();
+        this.loadProfile(); 
       })
       .catch( err => {
         console.log("erro no ngOnInit(): ",err);
@@ -45,8 +45,8 @@ export class GroupsPage {
     });
   }
 
-  loadGroups(token) {
-    this.groupsService.loadGroups(token)
+  loadGroups() {
+    this.groupsService.loadGroups(this.token)
       .subscribe(result => {
         this.groups = result;
       }, err => {
@@ -54,8 +54,8 @@ export class GroupsPage {
       })
   }
 
-  loadProfile(token) {
-    this.profileService.loadProfile(token)
+  loadProfile() {
+    this.profileService.loadProfile(this.token)
       .subscribe(result => {
         this.loggedUser = result;
       }, err => {
