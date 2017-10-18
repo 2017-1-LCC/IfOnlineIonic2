@@ -112,10 +112,14 @@ export class SelectedGroupPage {
     console.log('ação para remover grupo');
   }
 
+  selectProof(proof) {
+    console.log("prova selecionada: ",proof);
+  }
+
   addProva() {
     console.log("adicionando prova");
     const alert = this.alertCtrl.create({
-      title: 'Login',
+      title: 'Inserir prova',
       inputs: [
         {
           name: 'subjects',
@@ -144,7 +148,18 @@ export class SelectedGroupPage {
         {
           text: 'Cadastrar',
           handler: data => {
-              console.log("enviado no handler cadastrar:",data);
+
+            let loading = this.loadingCtrl.create({content:'Carregando...'});
+
+            loading.present();
+
+            this.groupService.insertProofOnGroup(this.token, this.idGroup, data)
+              .subscribe(result => {
+                this.loadGroup();
+                loading.dismiss();
+                this.presentSuccessAlert('Prova inserida com sucesso!');
+                alert.dismiss();
+              })
           }
         }
       ]

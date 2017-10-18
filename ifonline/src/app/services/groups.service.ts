@@ -11,6 +11,19 @@ export class GroupService {
     this.baseUrl = 'https://ifonline.herokuapp.com/';
   }
 
+  insertProofOnGroup(token, idGroup, data) {
+    let headers = new Headers();
+    headers.append('Authorization','Bearer '+token);
+    headers.append('Accept','application/json');
+    headers.append('Content-Type','application/json; charset=UTF-8');
+    let options = new RequestOptions({ headers: headers });
+
+    const group = JSON.stringify(data);
+
+    return this.http.post(this.baseUrl+'addProof/'+idGroup, group, options)
+            .map( res => console.log(res))
+  }
+
   loadFullInformationGroup(token, idGroup) {  
     let headers = new Headers();
     headers.append('Authorization','Bearer '+token);
@@ -20,10 +33,9 @@ export class GroupService {
             .map(res => res.json())
   }
 
-  loadGroups(data) {
+  loadGroups(token) {
     let headers = new Headers();
-    let token = 'Bearer '+data;
-    headers.append('Authorization',token);
+    headers.append('Authorization','Bearer '+token);
     let options = new RequestOptions({ headers: headers });
     return this.http.get(this.baseUrl+'studygroup', options)
               .map(res => res.json())
@@ -31,8 +43,7 @@ export class GroupService {
 
   createGroup(token, data) {
     let headers = new Headers();
-    let authToken = 'Bearer '+token;
-    headers.append('Authorization',authToken);
+    headers.append('Authorization','Bearer '+token);
     headers.append('Accept','application/json');
     headers.append('Content-Type','application/json; charset=UTF-8');
     let options = new RequestOptions({ headers: headers });

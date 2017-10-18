@@ -34,13 +34,10 @@
       </button>
     </ion-list-header>
     <ion-list>
-      <ion-item *ngFor="let proof of group.proof" (click)="selectGroup(group)">
-        <ion-avatar item-start>
-          <img src="http://placehold.it/100x100">
-        </ion-avatar>
-        <h2>{{group.dateProof}}</h2>
-        <p>{{group.subjects}}</p>
-        <ion-icon name="heart"></ion-icon>{{group.value}}
+      <ion-item *ngFor="let proof of group.proof" (click)="selectProof(proof)">
+        <p>{{proof.dateProof | date:'dd-MM-yyyy'}}</p>
+        <p>{{proof.value}}</p>
+        <p>{{proof.subjects}}</p>
       </ion-item>
     </ion-list>
   </ion-grid>
