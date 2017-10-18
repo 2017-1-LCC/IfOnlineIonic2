@@ -19,13 +19,18 @@
         <ion-icon name="heart"></ion-icon> {{2+2}}
     </ion-row>
 
-    <ion-row justify-content-center align-items-center *ngIf="!isMember">
+    <ion-row justify-content-center align-items-center *ngIf="!isMember && !isTeacher">
       <button ion-button color="secondary" full (click)="addStudent()" >Participar</button>
     </ion-row>
   
-    <ion-row justify-content-center align-items-center *ngIf="isMember">
+    <ion-row justify-content-center align-items-center *ngIf="isMember && !isTeacher">
       <button ion-button color="danger" full (click)="removeStudent()" >Sair</button>
     </ion-row>
+
+    <ion-row justify-content-center align-items-center *ngIf="isOwner">
+      <button ion-button color="danger" full (click)="removeGroup()" >Excluir</button>
+    </ion-row>
+
 
   </ion-grid>
 

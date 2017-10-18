@@ -16,15 +16,20 @@ export class LoginPage {
   user:Object={};
   jwtHelper = new JwtHelper();
 
-  constructor(private navCtrl: NavController, private authService:AuthService, 
-    public alertCtrl: AlertController, public loadingCtrl:LoadingController, private storage:Storage) {
+  constructor(
+    private navCtrl: NavController,
+    private authService:AuthService, 
+    private alertCtrl: AlertController, 
+    private loadingCtrl:LoadingController, 
+    private storage:Storage
+    ) {
   
     storage.ready()
       .then(() => {
         storage.get('token')
           .then( token => {
             if(token) {
-              this.navCtrl.setRoot(TabsPage,token);
+              this.navCtrl.setRoot(TabsPage);
             } 
             console.log("storage ready() token: ",token);
           })
@@ -35,10 +40,21 @@ export class LoginPage {
   }
 
   login() {
+    let loading = this.loadingCtrl.create({content:'Carregando...'});
+
+    loading.present();
+
     this.authService.login(this.user)
       .subscribe(
-        result => this.authSuccess(result.token) , 
-        err => console.log("erro ao logar: ",err)
+        result => {
+          this.authSuccess(result.token);
+          loading.dismiss();
+        }, 
+        err => {
+          loading.dismiss();
+          console.log("erro ao logar: ",err);
+          this.presentErrorAlert('Usuário não encontrado!');
+        }
       )
   }
 
@@ -48,28 +64,25 @@ export class LoginPage {
 
   authSuccess(token) {
     this.storage.set('token',token);
-    //this.storage.set('typeUser',this.jwtHelper.decodeToken(token).typeUser);
-    //this.storage.set('idUser',this.jwtHelper.decodeToken(token).idUser);
     this.navCtrl.setRoot(TabsPage);
   }
 
-  presentAlert() {
+  presentSuccessAlert(text:string) {
     const alert = this.alertCtrl.create({
       title: 'Sucesso',
-      subTitle: 'Usuário cadastrado com sucesso!',
+      subTitle: text,
       buttons: ['Dismiss']
     });
     alert.present();
   }
 
-  presentLoading() {
-    let loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 3000
+  presentErrorAlert(text:string) {
+    const alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: text,
+      buttons: ['Dismiss']
     });
-    loader.present();
+    alert.present();
   }
-// cleziel 11ec
-// hc3 ea43
-// tata 1177
+
 }

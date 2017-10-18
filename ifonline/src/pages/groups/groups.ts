@@ -15,6 +15,7 @@ export class GroupsPage {
   loggedUser:any={_id:'', username:'', user:{typeUser:''}, groups:[]};
   token:string='';
   groups:any=[];
+  isTeacher:boolean;
 
   constructor(
     private navCtrl: NavController, 
@@ -42,6 +43,7 @@ export class GroupsPage {
     this.navCtrl.push(SelectedGroupPage,{
       idGroup:group._id,
       idLoggedUser:this.loggedUser._id,
+      isTeacher:this.isTeacher
     });
   }
 
@@ -58,6 +60,11 @@ export class GroupsPage {
     this.profileService.loadProfile(this.token)
       .subscribe(result => {
         this.loggedUser = result;
+        if(this.loggedUser.user.typeUser === 'TEACHER') {
+          this.isTeacher = true;
+        } else {
+          this.isTeacher = false;
+        }
       }, err => {
         this.storage.remove('token');
         this.loggedUser = null;

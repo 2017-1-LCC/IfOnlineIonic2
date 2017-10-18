@@ -15,6 +15,7 @@ export class HomePage {
 
   loggedUser:any={_id:'', username:'', user:{typeUser:''}, groups:[]};
   token:string;
+  isTeacher:boolean;
 
   constructor(private navCtrl: NavController, private profileService:ProfileService,
     private storage: Storage) {
@@ -46,9 +47,16 @@ export class HomePage {
   }
 
   selectGroup(group) {
+    if(this.loggedUser.user.typeUser === 'TEACHER') {
+      this.isTeacher = true;
+    } else {
+      this.isTeacher = false;
+    }
+
     this.navCtrl.push(SelectedGroupPage,{
       idGroup:group._id,
       idLoggedUser:this.loggedUser._id,
+      isTeacher:this.isTeacher
     });
   }
 
