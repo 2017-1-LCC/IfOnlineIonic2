@@ -8,10 +8,22 @@
     margin-left: auto;
     margin-right: auto;
 }
-
 .circle-pic{
     width:100px;
     height:100px;
     -webkit-border-radius: 50%;
     border-radius: 50%;
+}
+
+.icons {
+    background-color: #fff;
+    border: 1px solid #7f8c8d;
+    color: #7f8c8d;
+    margin: 0;
+    font-size: 1.5em;
+}
+ 
+.button-container {
+    align-self: flex-end;
+    text-align: right;
 }

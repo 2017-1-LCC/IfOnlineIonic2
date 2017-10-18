@@ -5,30 +5,35 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-grid style="background-color: cornflowerblue; height:40%; color:white">
-    <ion-row justify-content-center align-itens-center>
-      <ion-avatar>
-        <img src="assets/imgs/Linux_Tux_852.png" class="image circle-pic" />
-      </ion-avatar>
-    </ion-row>
-    <ion-row justify-content-center align-items-center>
-        <h4>{{loggedUser.name}}</h4>
-    </ion-row>
-    <ion-row justify-content-center align-items-center>
-        <p>{{loggedUser.user.username}}</p>
-    </ion-row>
-  </ion-grid>
-  
-  <ion-grid *ngIf="loggedUser.user.typeUser === 'TEACHER'">
-    <ion-row justify-content-center align-items-center>
-       <button ion-button class="submit-btn" full (click)="newGroup()">Novo Grupo</button>
-    </ion-row>
-  </ion-grid>
+  <ion-grid style="background-color: cornflowerblue; height:35%; color:white">
+    
+    <ion-row class="header">
+      <ion-col col-4>
+        <ion-avatar>
+          <img src="assets/imgs/Linux_Tux_852.png" class="image circle-pic" />
+        </ion-avatar>
+      </ion-col>
 
-  <ion-grid>
-    <ion-row justify-content-center align-items-center>
-      <button ion-button color="danger" full (click)="logout()" >Sair</button>
+      <ion-col col-8>
+        <div class="button-container">
+          <button class="icons" style="border: none;" 
+          (click)="newGroup()"
+          *ngIf="loggedUser.user.typeUser === 'TEACHER'">
+            <ion-icon name="add-circle"></ion-icon>
+          </button>
+          <button class="icons">
+            <ion-icon name="settings"></ion-icon>
+          </button>
+          <button class="icons" (click)="logout()">
+            <ion-icon name="exit"></ion-icon>
+          </button>
+        </div>
+        <h4>{{loggedUser.name}}</h4>
+        <p>{{loggedUser.user.username}} || {{loggedUser.email}}</p> 
+      </ion-col>
+
     </ion-row>
+
   </ion-grid>
 
   <ion-grid>

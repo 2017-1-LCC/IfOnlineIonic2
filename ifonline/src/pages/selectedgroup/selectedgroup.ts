@@ -70,6 +70,10 @@ export class SelectedGroupPage {
       })
   }
 
+  selectStudent(student) {
+    console.log("estudante selecionado: ",student);
+  }
+
   addStudent() {
     let loading = this.loadingCtrl.create({content:'Carregando...'});
 
@@ -115,7 +119,9 @@ export class SelectedGroupPage {
       inputs: [
         {
           name: 'subjects',
-          placeholder: 'Assuntos'
+          placeholder: 'Assuntos',
+          type: 'text',
+         
         },
         {
           name: 'dateProof',
