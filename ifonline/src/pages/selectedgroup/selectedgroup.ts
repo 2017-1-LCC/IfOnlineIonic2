@@ -124,7 +124,7 @@ export class SelectedGroupPage {
         {
           name: 'subjects',
           placeholder: 'Assuntos',
-          type: 'text',
+          type: 'textarea',
          
         },
         {
