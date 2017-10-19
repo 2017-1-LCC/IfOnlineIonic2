@@ -10,7 +10,11 @@ import { HomePage } from '../home/home';
 })
 export class CreateGroupPage {
 
-  group:any={admin:{}};
+  group:any={
+    classSchedule:[{dayOfWeek:'',startTime:'',endTime:''}],
+    proof:[{subjects:'',dateProof:'',value:''}],
+    admin:{}
+  };
   idAdmin:string;
   token:string;
   
@@ -41,6 +45,7 @@ export class CreateGroupPage {
    let loading = this.loadingCtrl.create({content:'Carregando...'});
 
    loading.present();
+
    this.group.admin = this.idAdmin;
    
     this.groupService.createGroup(this.token, this.group)
@@ -54,6 +59,23 @@ export class CreateGroupPage {
         console.log("erro ao cadastrar grupo: ",err);
 
       })
+  }
+
+  addProof() {
+    this.group.proof.push({subjects:'',dateProof:'',value:''});
+  }
+
+  removeProof(proof) {
+    return proof.removed = true;
+  }
+
+  addClassSchedule() {
+    this.group.classSchedule.push({dayOfWeek:'',startTime:'',endTime:''});
+    console.log(this.group.classShedule);
+  }
+
+  removeClassSchedule(classSchedule) {
+    return classSchedule.removed = true;
   }
 
   presentAlert(name) {
