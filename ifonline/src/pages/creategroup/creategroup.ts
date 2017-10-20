@@ -11,8 +11,8 @@ import { HomePage } from '../home/home';
 export class CreateGroupPage {
 
   group:Object={
-    classSchedule:[],
-    proof:[],
+    classSchedule:[{dayOfWeek:'',startTime:'',endTime:'',removed:false}],
+    proof:[{subjects:'',dateProof:'',value:'',removed:false}],
     admin:{}
   };
   idAdmin:string;
