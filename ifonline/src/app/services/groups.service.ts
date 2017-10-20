@@ -9,6 +9,7 @@ export class GroupService {
 
   constructor(public http:Http) {
     this.baseUrl = 'https://ifonline.herokuapp.com/';
+    //this.baseUrl = 'http://DESKTOP-D8SBOQ2:3000/';
   }
 
   insertProofOnGroup(token, idGroup, data) {

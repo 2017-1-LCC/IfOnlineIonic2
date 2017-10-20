@@ -23,7 +23,7 @@
 
             <ion-item>
               <ion-label floating>Turma</ion-label>
-              <ion-input type="text" [(ngModel)]="group.academicClass" name="academicClass" required></ion-input>
+              <ion-input type="number" [(ngModel)]="group.academicClass" name="academicClass" required></ion-input>
             </ion-item>
 
             <ion-item>
@@ -41,12 +41,12 @@
               <ion-icon item-right name="add-circle" color="secondary" (click)="addClassSchedule()"></ion-icon>
             </ion-item>
 
-            <div *ngFor="let classSchedule of group.classSchedule">
+            <div *ngFor="let classSchedule of group.classSchedule; let i = index">
               <div *ngIf="!classSchedule.removed">
                 <ion-icon item-left name="remove-circle" style="font-size: 25px;" color="danger" (click)="removeClassSchedule(classSchedule)"></ion-icon>
                 <ion-item>
                   <ion-label floating>Dia na samana</ion-label>
-                  <ion-select [(ngModel)]="classSchedule.dayOfWeek" name="dayOfWeek">
+                  <ion-select [(ngModel)]="classSchedule.dayOfWeek" name="classSchedule.dayOfWeek{{i}}">
                     <ion-option value="SEGUNDA">Segunda-Feira</ion-option>
                     <ion-option value="TERÇA">Terça-Feira</ion-option>
                     <ion-option value="QUARTA">Quarta-Feira</ion-option>
@@ -58,12 +58,12 @@
 
                 <ion-item>
                   <ion-label floating>Hora de início</ion-label>
-                  <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="classSchedule.startTime" name="startTime" required></ion-datetime>
+                  <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="classSchedule.startTime" name="classSchedule.startTime{{i}}" required></ion-datetime>
                 </ion-item>
 
                 <ion-item>
                   <ion-label floating>Hora de termino</ion-label>
-                  <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="classSchedule.endTime" name="endTime" required></ion-datetime>
+                  <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="classSchedule.endTime" name="classSchedule.endTime{{i}}" required></ion-datetime>
                 </ion-item>
               </div>
             </div>
@@ -73,22 +73,22 @@
               <ion-icon item-right name="add-circle" color="secondary" (click)="addProof()"></ion-icon>
             </ion-item>
 
-            <div *ngFor="let proof of group.proof">
+            <div *ngFor="let proof of group.proof; let i = index">
                 <div *ngIf="!proof.removed">
                     <ion-icon item-left name="remove-circle" style="font-size: 25px;" color="danger" (click)="removeProof(proof)"></ion-icon>
                 <ion-item>
                     <ion-label floating>Assuntos da prova</ion-label>
-                    <ion-textarea rows="4" type="text" [(ngModel)]="proof.subjects" name="subjects" required></ion-textarea>
+                    <ion-textarea rows="4" type="text" [(ngModel)]="proof.subjects" name="proof.subjects{{i}}" required></ion-textarea>
                 </ion-item>
 
                 <ion-item>
                     <ion-label floating>Data da prova</ion-label>
-                    <ion-datetime displayFormat="DD/MMM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="proof.dateProof" name="startTime" required></ion-datetime>
+                    <ion-datetime displayFormat="DD/MMM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="proof.dateProof" name="proof.startTime{{i}}" required></ion-datetime>
                 </ion-item>
 
                 <ion-item>
                     <ion-label floating>Valor em pontos</ion-label>
-                    <ion-input type="number" [(ngModel)]="proof.value" name="value" required></ion-input>
+                    <ion-input type="number" [(ngModel)]="proof.value" name="proof.value{{i}}" required></ion-input>
                 </ion-item>
                 
                 </div>

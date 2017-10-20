@@ -5,6 +5,7 @@
 </ion-header>
 
 <ion-content padding>
+
   <ion-grid style="background-color: cornflowerblue; height:25%; color:white">
     <ion-row justify-content-center align-items-center>
         <p>Turma: {{group.academicClass}}</p> - 
@@ -22,28 +23,52 @@
     <ion-row justify-content-center align-items-center *ngIf="isOwner">
       <button ion-button color="danger" full (click)="removeGroup()" >Excluir</button>
     </ion-row>
-
-
   </ion-grid>
 
+
   <ion-grid>
-    <ion-list-header>
-      Provas 
-      <button ion-button icon-only (click)="addProva()">  
-        <ion-icon name="add"></ion-icon> 
-      </button>
+    <ion-list-header style="text-align: center">
+      Horário das Aulas
     </ion-list-header>
     <ion-list>
-      <ion-item *ngFor="let proof of group.proof" (click)="selectProof(proof)">
-        <p>{{proof.dateProof | date:'dd-MM-yyyy'}}</p>
-        <p>{{proof.value}}</p>
-        <p>{{proof.subjects}}</p>
+      <ion-item *ngFor="let classSchedule of group.classSchedule" >
+        <ion-row>
+          <ion-col col-4>
+            <p>{{classSchedule.dayOfWeek}}</p>
+          </ion-col>
+          <ion-col col-8>
+            <p>Inicia ás: {{classSchedule.startTime}}</p>
+            <p>Termina ás: {{classSchedule.endTime}}</p>
+          </ion-col>
+        </ion-row>
       </ion-item>
     </ion-list>
   </ion-grid>
 
-    <ion-grid>
-    <ion-list-header>
+  <ion-grid>
+    <ion-list-header style="text-align: center">
+      Provas
+    </ion-list-header>
+    <ion-list>
+      <ion-item *ngFor="let proof of group.proof">
+        <ion-row>
+          <p>{{proof.subjects}}</p>
+        </ion-row>
+        <br/>
+        <ion-row>
+          <ion-col col-8>
+            <p>Data: {{proof.dateProof | date:'dd-MM-yyyy'}}</p>
+          </ion-col>
+          <ion-col col-4>
+            <p>Valor: {{proof.value}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-list-header style="text-align: center">
       Alunos
     </ion-list-header>
     <ion-list>

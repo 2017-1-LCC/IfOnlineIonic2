@@ -10,9 +10,9 @@ import { HomePage } from '../home/home';
 })
 export class CreateGroupPage {
 
-  group:any={
-    classSchedule:[{dayOfWeek:'',startTime:'',endTime:'',removed:false}],
-    proof:[{subjects:'',dateProof:'',value:'',removed:false}],
+  group:Object={
+    classSchedule:[],
+    proof:[],
     admin:{}
   };
   idAdmin:string;
@@ -55,9 +55,9 @@ export class CreateGroupPage {
         this.navCtrl.setRoot(HomePage);
         console.log("grupo cadastrado com sucesso!:",result);
       }, err => {
+        loading.dismiss();
         this.presentErrorAlert('Erro ao cadastrar grupo!');
         console.log("erro ao cadastrar grupo: ",err);
-
       })
   }
 
