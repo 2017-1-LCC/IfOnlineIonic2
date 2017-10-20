@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { NavParams, AlertController, LoadingController, NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { GroupService } from '../../app/services/groups.service';
+import { EditGroupPage } from '../editgroup/editgroup';
 
 @Component({
   selector:'selected-group',
@@ -23,7 +24,8 @@ export class SelectedGroupPage {
     private groupService: GroupService, 
     private storage:Storage,
     private alertCtrl:AlertController,
-    private loadingCtrl:LoadingController
+    private loadingCtrl:LoadingController,
+    private navCtrl:NavController
   ) 
   {
       
@@ -106,6 +108,12 @@ export class SelectedGroupPage {
         console.log("erro ao entrar no grupo: ",err);
         this.presentErrorAlert('não foi possível entrar no grupo');
       })
+  }
+
+  enableEditGroup() {
+    this.navCtrl.push(EditGroupPage, {
+      groupToEdit:this.group
+    });
   }
 
   removeGroup() {

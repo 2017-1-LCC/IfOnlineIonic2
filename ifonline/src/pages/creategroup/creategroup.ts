@@ -4,13 +4,29 @@ import { Storage } from "@ionic/storage";
 import { GroupService } from '../../app/services/groups.service';
 import { HomePage } from '../home/home';
 
+export interface Group {
+      classSchedule:[{
+        dayOfWeek:'',
+        startTime:'',
+        endTime:'',
+        removed:false
+      }],
+      proof:[{
+        subjects:'',
+        dateProof:'',
+        value:'',
+        removed:false
+      }],
+      admin:{}
+}
+
 @Component({
   selector: 'create-group',
   templateUrl: 'creategroup.html'
 })
 export class CreateGroupPage {
 
-  group:Object;
+  group:Group;
   idAdmin:string;
   token:string;
   
@@ -24,11 +40,6 @@ export class CreateGroupPage {
     public loadingCtrl:LoadingController
     ) {
       this.idAdmin = this.navParams.data;
-      this.group = {
-        classSchedule:[{dayOfWeek:'',startTime:'',endTime:'',removed:false}],
-        proof:[{subjects:'',dateProof:'',value:'',removed:false}],
-        admin:''
-      };
     }
 
   ngOnInit() {

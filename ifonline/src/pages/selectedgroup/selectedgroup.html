@@ -12,17 +12,25 @@
         <ion-icon name="heart"></ion-icon> {{2+2}} -  {{isOwner}}
     </ion-row>
 
-    <ion-row justify-content-center align-items-center *ngIf="!isMember && !isTeacher">
-      <button ion-button color="secondary" full (click)="addStudent()" >Participar</button>
-    </ion-row>
-  
-    <ion-row justify-content-center align-items-center *ngIf="isMember && !isTeacher">
+    <ion-row justify-content-center align-items-center >
+      <ion-col col-3 *ngIf="!isMember && !isTeacher">
+      <button ion-button color="secondary" full (click)="addStudent()" >Entrar</button>
+      </ion-col>
+
+      <ion-col col-3 *ngIf="isMember && !isTeacher">
       <button ion-button color="danger" full (click)="removeStudent()" >Sair</button>
+      </ion-col>
+
+      <ion-col col-3 *ngIf="isOwner">
+      <button ion-button color="danger" full (click)="removeGroup()" >Excluir</button>
+      </ion-col>
+
+      <ion-col col-3 *ngIf="isOwner">
+        <button ion-button full (click)="enableEditGroup()">Editar</button>
+      </ion-col>
+
     </ion-row>
 
-    <ion-row justify-content-center align-items-center *ngIf="isOwner">
-      <button ion-button color="danger" full (click)="removeGroup()" >Excluir</button>
-    </ion-row>
   </ion-grid>
 
 

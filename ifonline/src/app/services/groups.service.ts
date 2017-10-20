@@ -12,7 +12,7 @@ export class GroupService {
     //this.baseUrl = 'http://DESKTOP-D8SBOQ2:3000/';
   }
 
-  insertProofOnGroup(token, idGroup, data) {
+  updateGroup(token , data) {
     let headers = new Headers();
     headers.append('Authorization','Bearer '+token);
     headers.append('Accept','application/json');
@@ -21,8 +21,8 @@ export class GroupService {
 
     const group = JSON.stringify(data);
 
-    return this.http.post(this.baseUrl+'addProof/'+idGroup, group, options)
-            .map( res => console.log(res))
+    return this.http.put(this.baseUrl+'studygroup/'+data._id, group, options)
+            .map( res => res.json())
   }
 
   loadFullInformationGroup(token, idGroup) {  
