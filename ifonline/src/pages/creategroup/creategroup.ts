@@ -11,8 +11,8 @@ import { HomePage } from '../home/home';
 export class CreateGroupPage {
 
   group:any={
-    classSchedule:[{dayOfWeek:'',startTime:'',endTime:''}],
-    proof:[{subjects:'',dateProof:'',value:''}],
+    classSchedule:[{dayOfWeek:'',startTime:'',endTime:'',removed:false}],
+    proof:[{subjects:'',dateProof:'',value:'',removed:false}],
     admin:{}
   };
   idAdmin:string;
@@ -62,7 +62,7 @@ export class CreateGroupPage {
   }
 
   addProof() {
-    this.group.proof.push({subjects:'',dateProof:'',value:''});
+    this.group.proof.push({subjects:'',dateProof:'',value:'',removed:false});
   }
 
   removeProof(proof) {
@@ -70,8 +70,7 @@ export class CreateGroupPage {
   }
 
   addClassSchedule() {
-    this.group.classSchedule.push({dayOfWeek:'',startTime:'',endTime:''});
-    console.log(this.group.classShedule);
+    this.group.classSchedule.push({dayOfWeek:'',startTime:'',endTime:'',removed:false});
   }
 
   removeClassSchedule(classSchedule) {

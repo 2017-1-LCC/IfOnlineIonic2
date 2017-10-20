@@ -38,12 +38,12 @@
 
             <ion-item>
               <ion-label style="text-align: center">Horário das Aulas</ion-label>
-              <ion-icon item-right name="contacts" (click)="addClassSchedule()"></ion-icon>
+              <ion-icon item-right name="add-circle" color="secondary" (click)="addClassSchedule()"></ion-icon>
             </ion-item>
 
             <div *ngFor="let classSchedule of group.classSchedule">
               <div *ngIf="!classSchedule.removed">
-                <ion-icon item-left name="remove-circle" (click)="removeClassSchedule(classSchedule)"></ion-icon>
+                <ion-icon item-left name="remove-circle" style="font-size: 25px;" color="danger" (click)="removeClassSchedule(classSchedule)"></ion-icon>
                 <ion-item>
                   <ion-label floating>Dia na samana</ion-label>
                   <ion-select [(ngModel)]="classSchedule.dayOfWeek" name="dayOfWeek">
@@ -70,12 +70,12 @@
 
             <ion-item>
               <ion-label style="text-align: center">Provas da Disciplina</ion-label>
-              <ion-icon item-right name="contacts" (click)="addProof()"></ion-icon>
+              <ion-icon item-right name="add-circle" color="secondary" (click)="addProof()"></ion-icon>
             </ion-item>
 
             <div *ngFor="let proof of group.proof">
                 <div *ngIf="!proof.removed">
-                <ion-icon item-left name="remove-circle" (click)="removeProof(proof)"></ion-icon>
+                    <ion-icon item-left name="remove-circle" style="font-size: 25px;" color="danger" (click)="removeProof(proof)"></ion-icon>
                 <ion-item>
                     <ion-label floating>Assuntos da prova</ion-label>
                     <ion-textarea rows="4" type="text" [(ngModel)]="proof.subjects" name="subjects" required></ion-textarea>
@@ -90,6 +90,7 @@
                     <ion-label floating>Valor em pontos</ion-label>
                     <ion-input type="number" [(ngModel)]="proof.value" name="value" required></ion-input>
                 </ion-item>
+                
                 </div>
             </div>
 
