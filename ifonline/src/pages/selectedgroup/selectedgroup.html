@@ -27,7 +27,7 @@
 
 
   <ion-grid>
-    <ion-list-header style="text-align: center">
+    <ion-list-header class="headerList">
       Horário das Aulas
     </ion-list-header>
     <ion-list>
@@ -46,7 +46,7 @@
   </ion-grid>
 
   <ion-grid>
-    <ion-list-header style="text-align: center">
+    <ion-list-header class="headerList">
       Provas
     </ion-list-header>
     <ion-list>
@@ -68,8 +68,8 @@
   </ion-grid>
 
   <ion-grid>
-    <ion-list-header style="text-align: center">
-      Alunos
+    <ion-list-header class="headerList">
+     Alunos
     </ion-list-header>
     <ion-list>
       <ion-item *ngFor="let student of group.students" (click)="selectStudent(student)">

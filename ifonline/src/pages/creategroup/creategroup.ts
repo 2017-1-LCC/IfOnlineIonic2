@@ -10,11 +10,7 @@ import { HomePage } from '../home/home';
 })
 export class CreateGroupPage {
 
-  group:Object={
-    classSchedule:[{dayOfWeek:'',startTime:'',endTime:'',removed:false}],
-    proof:[{subjects:'',dateProof:'',value:'',removed:false}],
-    admin:{}
-  };
+  group:Object;
   idAdmin:string;
   token:string;
   
@@ -28,6 +24,11 @@ export class CreateGroupPage {
     public loadingCtrl:LoadingController
     ) {
       this.idAdmin = this.navParams.data;
+      this.group = {
+        classSchedule:[{dayOfWeek:'',startTime:'',endTime:'',removed:false}],
+        proof:[{subjects:'',dateProof:'',value:'',removed:false}],
+        admin:''
+      };
     }
 
   ngOnInit() {

@@ -47,11 +47,11 @@
       <button class="mycss" ion-fab (click)="newGroup()" *ngIf="loggedUser.user.typeUser === 'TEACHER'">
         <ion-icon name="book"></ion-icon>
       </button>
-      <ion-label class="novoGrupo">Novo grupo</ion-label>
+      <ion-label class="novoGrupo" *ngIf="loggedUser.user.typeUser === 'TEACHER'">Novo grupo</ion-label>
       <button ion-fab>
         <ion-icon name="options"></ion-icon>
       </button>
-      <ion-label class="config">Configurações</ion-label>
+      <ion-label [ngClass]="(loggedUser.user.typeUser === 'TEACHER')?'config':'novoGrupo'">Configurações</ion-label>
       <button ion-fab (click)="logout()">
         <ion-icon name="power"></ion-icon>
       </button>

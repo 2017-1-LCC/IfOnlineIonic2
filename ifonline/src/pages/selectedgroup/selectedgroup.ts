@@ -116,58 +116,6 @@ export class SelectedGroupPage {
     console.log("prova selecionada: ",proof);
   }
 
-  addProva() {
-    console.log("adicionando prova");
-    const alert = this.alertCtrl.create({
-      title: 'Inserir prova',
-      inputs: [
-        {
-          name: 'subjects',
-          placeholder: 'Assuntos',
-          type: 'textarea',
-         
-        },
-        {
-          name: 'dateProof',
-          placeholder: 'Data',
-          type: 'date'
-        },
-        {
-          name: 'value',
-          placeholder: 'Valor total',
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Cadastrar',
-          handler: data => {
-
-            let loading = this.loadingCtrl.create({content:'Carregando...'});
-
-            loading.present();
-
-            this.groupService.insertProofOnGroup(this.token, this.idGroup, data)
-              .subscribe(result => {
-                this.loadGroup();
-                loading.dismiss();
-                this.presentSuccessAlert('Prova inserida com sucesso!');
-                alert.dismiss();
-              })
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-
   presentErrorAlert(text:string) {
     const alert = this.alertCtrl.create({
       title: 'Error',
