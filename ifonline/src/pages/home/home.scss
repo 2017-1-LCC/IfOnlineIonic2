@@ -8,7 +8,7 @@
     margin-left: auto;
     margin-right: auto;
 }
-.circle-pic{
+.circle-pic {
     width:100px;
     height:100px;
     -webkit-border-radius: 50%;
@@ -27,7 +27,31 @@
 }
 
 .headerGrid { 
-    background-color: cornflowerblue; 
+    background-color: rgb(3, 97, 65); 
     height:25%; 
     color:white
+}
+
+.novoGrupo, .config, .logout {
+    position: absolute;        
+    right: 45px;
+    opacity: 0.9;  
+
+    color: #fff;
+    background-color: #474646;
+    line-height: 24px;
+    padding: 4px 8px;
+    border-radius: 15px;    
+}
+
+.novoGrupo {
+    bottom: -2px;
+}
+
+.config {    
+    bottom: 55px;       
+}
+
+.logout {    
+    top: -1.5px;     
 }
