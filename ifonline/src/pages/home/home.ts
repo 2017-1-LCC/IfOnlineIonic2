@@ -41,7 +41,7 @@ export class HomePage {
       }, err => {
         this.storage.remove('token');
         this.loggedUser = null;
-        this.navCtrl.push(LoginPage);
+        this.navCtrl.setRoot(LoginPage);
         console.log("erro ao carregar profile: ",err);
       })
   }
