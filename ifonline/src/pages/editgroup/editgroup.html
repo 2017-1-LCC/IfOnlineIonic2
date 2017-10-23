@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar align-title="center">
-    <ion-title>Cadastrar Grupo</ion-title>
+    <ion-title>Alterar Grupo</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -58,12 +58,12 @@
 
                 <ion-item>
                   <ion-label floating>Hora de início</ion-label>
-                  <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="classSchedule.startTime" name="classSchedule.startTime{{i}}" required></ion-datetime>
+                  <ion-datetime min="19:00" displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="classSchedule.startTime" name="classSchedule.startTime{{i}}" required></ion-datetime>
                 </ion-item>
 
                 <ion-item>
                   <ion-label floating>Hora de termino</ion-label>
-                  <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="classSchedule.endTime" name="classSchedule.endTime{{i}}" required></ion-datetime>
+                  <ion-datetime min="20:00" max="22:00" displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="classSchedule.endTime" name="classSchedule.endTime{{i}}" required></ion-datetime>
                 </ion-item>
               </div>
             </div>
@@ -83,7 +83,7 @@
 
                 <ion-item>
                     <ion-label floating>Data da prova</ion-label>
-                    <ion-datetime displayFormat="DD/MMM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="proof.dateProof" name="proof.startTime{{i}}" required></ion-datetime>
+                    <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="proof.dateProof" name="proof.startTime{{i}}" required></ion-datetime>
                 </ion-item>
 
                 <ion-item>

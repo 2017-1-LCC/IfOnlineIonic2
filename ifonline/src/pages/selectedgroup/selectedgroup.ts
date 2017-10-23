@@ -64,9 +64,7 @@ export class SelectedGroupPage {
         } else {
           this.isMember = false;
         }
-
-        console.log("retorno do map: ",data);
-
+        
       }, err => {
         console.log("erro ao buscar grupo full: ",err);
       })

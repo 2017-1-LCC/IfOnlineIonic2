@@ -4,7 +4,18 @@ import { Storage } from "@ionic/storage";
 import { GroupService } from '../../app/services/groups.service';
 import { HomePage } from '../home/home';
 
-export interface Group {
+@Component({
+  selector: 'create-group',
+  templateUrl: 'creategroup.html'
+})
+export class CreateGroupPage {
+
+  group:any={
+      discipline:'',
+      description:'',
+      academicClass:'',
+      dateStart:'',
+      dateEnd:'',
       classSchedule:[{
         dayOfWeek:'',
         startTime:'',
@@ -18,15 +29,7 @@ export interface Group {
         removed:false
       }],
       admin:{}
-}
-
-@Component({
-  selector: 'create-group',
-  templateUrl: 'creategroup.html'
-})
-export class CreateGroupPage {
-
-  group:Group;
+  };
   idAdmin:string;
   token:string;
   
@@ -65,7 +68,6 @@ export class CreateGroupPage {
         this.presentAlert(result.discipline);
         loading.dismiss();
         this.navCtrl.setRoot(HomePage);
-        console.log("grupo cadastrado com sucesso!:",result);
       }, err => {
         loading.dismiss();
         this.presentErrorAlert('Erro ao cadastrar grupo!');

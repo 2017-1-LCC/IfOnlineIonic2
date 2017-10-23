@@ -81,7 +81,6 @@ ionViewWillEnter() {
         this.presentAlert(result.discipline);
         loading.dismiss();
         this.navCtrl.pop();
-        console.log("grupo alterado com sucesso!:",result);
       }, err => {
         loading.dismiss();
         this.presentErrorAlert('Erro ao cadastrar grupo!');

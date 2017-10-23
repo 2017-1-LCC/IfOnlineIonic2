@@ -6,6 +6,7 @@ import 'rxjs/Rx';
 export class GroupService {
 
   baseUrl:string;
+  groups:any=[];
 
   constructor(public http:Http) {
     this.baseUrl = 'https://ifonline.herokuapp.com/';
@@ -39,7 +40,16 @@ export class GroupService {
     headers.append('Authorization','Bearer '+token);
     let options = new RequestOptions({ headers: headers });
     return this.http.get(this.baseUrl+'studygroup', options)
-              .map(res => res.json())
+              .map(res => {
+                this.groups = res.json();
+                return res.json()
+              })
+  }
+
+  filterGroups(searchTerm) {
+    return this.groups.filter((group) => {
+      return group.discipline.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    });
   }
 
   createGroup(token, data) {

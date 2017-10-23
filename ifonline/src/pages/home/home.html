@@ -31,7 +31,7 @@
       Groups
     </ion-list-header>
     <ion-list>
-      <ion-item *ngFor="let group of loggedUser.groups" (click)="selectGroup(group)">
+      <ion-item *ngFor="let group of loggedUser.groups" (click)="selectGroup(group)" text-wrap>
         <ion-avatar item-start>
           <img src="assets/imgs/sobre.png">
         </ion-avatar>

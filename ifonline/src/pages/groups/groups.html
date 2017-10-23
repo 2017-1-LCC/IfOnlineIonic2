@@ -5,13 +5,18 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-searchbar (ionInput)="getGroups($event)"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="onSearchInput()" [formControl]="searchControl"></ion-searchbar>
   <ion-grid>
     <ion-list-header>
       Lista de Grupos
     </ion-list-header>
+
+    <div *ngIf="searching" class="spinner-container">
+        <ion-spinner></ion-spinner>
+    </div>
+
     <ion-list>
-      <ion-item *ngFor="let group of groups" (click)="selectGroup(group)">
+      <ion-item *ngFor="let group of groups" (click)="selectGroup(group)" text-wrap>
         <ion-avatar item-start>
           <img src="assets/imgs/sobre.png">
         </ion-avatar>
