@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, App } from 'ionic-angular';
 import { Storage } from "@ionic/storage";
 
 import { ProfileService } from '../../app/services/profile.service';
@@ -17,10 +17,12 @@ export class HomePage {
   token:string;
   isTeacher:boolean;
 
-  constructor(private navCtrl: NavController, private profileService:ProfileService,
-    private storage: Storage) {
-
-  }
+  constructor(
+    private navCtrl: NavController, 
+    private profileService:ProfileService,
+    private storage: Storage,
+    private app:App
+  ) {  }
 
   ionViewWillEnter() {
     this.storage.get('token')
@@ -60,11 +62,15 @@ export class HomePage {
     });
   }
 
+  editProfile() {
+    console.log("click em configurações",this.loggedUser);
+  }
+
   logout() {
     this.storage.remove('token');
     this.loggedUser = {_id:'', username:'', user:{typeUser:''}, groups:[]};
     this.token = null;
-    this.navCtrl.setRoot(LoginPage);
+    this.app.getRootNav().setRoot(LoginPage);
   }
 
   newGroup() {

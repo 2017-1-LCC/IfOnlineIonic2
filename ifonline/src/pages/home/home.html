@@ -48,7 +48,7 @@
         <ion-icon name="book"></ion-icon>
       </button>
       <ion-label class="novoGrupo" *ngIf="loggedUser.user.typeUser === 'TEACHER'">Novo grupo</ion-label>
-      <button ion-fab>
+      <button ion-fab (click)="editProfile()">
         <ion-icon name="options"></ion-icon>
       </button>
       <ion-label [ngClass]="(loggedUser.user.typeUser === 'TEACHER')?'config':'novoGrupo'">Configurações</ion-label>
