@@ -16,6 +16,7 @@ import { CreateUserPage } from '../pages/createuser/createuser';
 import { CreateGroupPage } from '../pages/creategroup/creategroup';
 import { SelectedGroupPage } from '../pages/selectedgroup/selectedgroup';
 import { EditGroupPage } from '../pages/editgroup/editgroup';
+import { EditUserPage } from '../pages/edituser/edituser';
 
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
@@ -38,7 +39,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     GroupsPage,
     CreateGroupPage,
     SelectedGroupPage,
-    EditGroupPage
+    EditGroupPage,
+    EditUserPage
   ],
   imports: [
     HttpModule,
@@ -58,7 +60,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     GroupsPage,
     CreateGroupPage,
     SelectedGroupPage,
-    EditGroupPage
+    EditGroupPage,
+    EditUserPage
   ],
   providers: [
     StatusBar,

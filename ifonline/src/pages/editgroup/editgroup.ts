@@ -42,7 +42,7 @@ export class EditGroupPage {
     }
 
 
-ionViewWillEnter() {
+  ionViewWillEnter() {
     let tabs = document.querySelectorAll('.tabbar');
     if ( tabs !== null ) {
       Object.keys(tabs).map((key) => {

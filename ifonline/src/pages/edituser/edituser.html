@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-navbar align-title="center">
+    <ion-title>Alterar Usuário</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content  padding>
+  <div>
+    <form #editUserForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list>
+
+            <ion-item>
+              <ion-label floating>Username: </ion-label>
+              <ion-input type="text" [(ngModel)]="loggedUser.username" name="username" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label floating>Nome Completo</ion-label>
+              <ion-input type="text" [(ngModel)]="loggedUser.name" name="name" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label floating>Email</ion-label>
+              <ion-input type="email" [(ngModel)]="loggedUser.email" name="email" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label floating>Data Nascimento</ion-label>
+              <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="loggedUser.birthDate" name="birthDate" required></ion-datetime>
+            </ion-item>
+
+            <ion-item>
+              <ion-label floating>Last Password</ion-label>
+              <ion-input type="password" [(ngModel)]="loggedUser.lastPassword" name="lastPassword" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label floating>New Password</ion-label>
+              <ion-input type="password" [(ngModel)]="loggedUser.newPassword" name="newPassword" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label floating>Repeat New Password</ion-label>
+              <ion-input type="password" [(ngModel)]="loggedUser.repeatedPassword" name="repeatedPassword" required></ion-input>
+            </ion-item>
+
+          </ion-list>
+
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full (click)="update()" [disabled]="!editUserForm.form.valid">Atualizar</button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+  </div>
+</ion-content>

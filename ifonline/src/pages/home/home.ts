@@ -5,6 +5,7 @@ import { Storage } from "@ionic/storage";
 import { ProfileService } from '../../app/services/profile.service';
 import { CreateGroupPage } from '../creategroup/creategroup';
 import { SelectedGroupPage } from '../selectedgroup/selectedgroup';
+import { EditUserPage } from '../edituser/edituser';
 import { LoginPage } from '../login/login';
 
 @Component({
@@ -63,7 +64,17 @@ export class HomePage {
   }
 
   editProfile() {
-    console.log("click em configurações",this.loggedUser);
+    //console.log("click em configurações",this.loggedUser);
+    const obj = {
+      username:this.loggedUser.user.username,
+      name:this.loggedUser.name,
+      email:this.loggedUser.email,
+      birthDate:this.loggedUser.birthDate,
+    }
+    console.log("novo objeto: ",obj);
+    this.navCtrl.push(EditUserPage,{
+      user:obj
+    });
   }
 
   logout() {
