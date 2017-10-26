@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController,  AlertController, NavParams  } from 'ionic-angular';
-import { ProfileService } from '../../app/services/profile.service';
+import { AlertController, NavParams  } from 'ionic-angular';
+//import { ProfileService } from '../../app/services/profile.service'; NavController
 import { Storage } from "@ionic/storage";
 
 export interface User {
@@ -24,8 +24,8 @@ export class EditUserPage {
   //createdUser:any={name:''};
 
   constructor(
-    private navCtrl: NavController, 
-    private profileService:ProfileService, 
+   // private navCtrl: NavController, 
+   // private profileService:ProfileService, 
     private alert:AlertController,
     private storage: Storage,
     private navParams:NavParams
