@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AlertController, NavParams  } from 'ionic-angular';
-//import { ProfileService } from '../../app/services/profile.service'; NavController
+import { AlertController, NavParams, LoadingController  } from 'ionic-angular';
+import { UserService } from '../../app/services/user.service'; //NavController
 import { Storage } from "@ionic/storage";
 
 export interface User {
@@ -8,9 +8,8 @@ export interface User {
     name:'',
     email:'',
     birthDate:'',
-    lastPassword:'',
-    newPassword:'',
-    repeatedPassword:''
+    _id:'',
+    idOther:''
 }
 
 @Component({
@@ -25,10 +24,11 @@ export class EditUserPage {
 
   constructor(
    // private navCtrl: NavController, 
-   // private profileService:ProfileService, 
+    private userService:UserService, 
     private alert:AlertController,
     private storage: Storage,
-    private navParams:NavParams
+    private navParams:NavParams,
+    private loadingCtrl:LoadingController
    ) 
    {
        this.loggedUser = this.navParams.data.user;
@@ -63,12 +63,27 @@ export class EditUserPage {
   }
 
   update() {
+    let loading = this.loadingCtrl.create({content:'Carregando...'});
+
+    loading.present();
+
+    this.userService.update(this.token,this.loggedUser)
+      .subscribe( result => {
+        this.presentAlert(result.name);
+        loading.dismiss();
+      }, err => {
+        loading.dismiss();
+        this.presentErrorAlert('Erro ao atualizar usuário!');
+      })  
+  }
+
+  presentErrorAlert(text:string) {
     const alert = this.alert.create({
-      title: 'Informação',
-      subTitle: 'Funcionalidade em desenvolvimento',
+      title: 'Error',
+      subTitle: text,
       buttons: ['Dismiss']
     });
-    alert.present();    
+    alert.present();
   }
 
   presentAlert(name) {

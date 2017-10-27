@@ -65,15 +65,16 @@ export class HomePage {
 
   editProfile() {
     //console.log("click em configurações",this.loggedUser);
-    const obj = {
+    const data = {
       username:this.loggedUser.user.username,
       name:this.loggedUser.name,
       email:this.loggedUser.email,
       birthDate:this.loggedUser.birthDate,
+      _id:this.loggedUser.user._id,
+      idOther:this.loggedUser._id
     }
-    console.log("novo objeto: ",obj);
     this.navCtrl.push(EditUserPage,{
-      user:obj
+      user:data
     });
   }
 

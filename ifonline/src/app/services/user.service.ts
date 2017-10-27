@@ -31,6 +31,32 @@ export class UserService {
     })
   }
 
+  update(token, data) {
+    let headers = new Headers();
+    headers.append('Authorization','Bearer '+token);
+    headers.append('Accept','application/json');
+    headers.append('Content-Type','application/json; charset=UTF-8');
+    let options = new RequestOptions({ headers: headers });
+
+    data.typeUser = 'STUDENT';
+    const user = JSON.stringify(data); 
+
+    return this.http.put(this.baseUrl+'/'+data._id, data, options)
+              .map( res => res.json())
+    
+    /*
+    return new Promise((resolve, reject) => {
+      this.http.put(this.baseUrl, user, options)
+        .map(res => res.json())
+        .subscribe(data => {
+          resolve(data);
+        }, (err) => {
+          reject(err);
+        })
+    })
+    */
+  }
+
 
 
 }
