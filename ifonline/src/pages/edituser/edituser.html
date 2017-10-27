@@ -12,7 +12,7 @@
           <ion-list>
 
             <div class="gallery-button" text-center>
-              <img [src]="loggedUser.picture" />    
+              <img [src]="loggedUser.picture" *ngIf="loggedUser.picture" style="width: 300px; height: 300px"/>
               <ion-icon name="images" on-tap="openGallery()"></ion-icon>
             </div>
 
