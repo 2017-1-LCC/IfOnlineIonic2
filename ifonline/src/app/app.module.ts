@@ -23,7 +23,7 @@ import { UserService } from './services/user.service';
 import { ProfileService } from './services/profile.service'; 
 import { GroupService } from './services/groups.service';
 
-
+import { Camera } from '@ionic-native/camera';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -70,6 +70,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     UserService,
     ProfileService,
     GroupService,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler, deps:[Storage] }
   ]
 })

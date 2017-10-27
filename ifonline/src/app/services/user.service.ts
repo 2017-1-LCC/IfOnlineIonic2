@@ -41,7 +41,7 @@ export class UserService {
     data.typeUser = 'STUDENT';
     const user = JSON.stringify(data); 
 
-    return this.http.put(this.baseUrl+'/'+data._id, data, options)
+    return this.http.put(this.baseUrl+'/'+data._id, user, options)
               .map( res => res.json())
     
     /*

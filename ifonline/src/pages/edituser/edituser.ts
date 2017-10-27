@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { AlertController, NavParams, LoadingController  } from 'ionic-angular';
-import { UserService } from '../../app/services/user.service'; //NavController
+import { AlertController, NavParams, LoadingController, NavController  } from 'ionic-angular';
+import { UserService } from '../../app/services/user.service'; //
+
 import { Storage } from "@ionic/storage";
+import { Camera } from '@ionic-native/camera';
 
 export interface User {
     username:'',
@@ -9,7 +11,8 @@ export interface User {
     email:'',
     birthDate:'',
     _id:'',
-    idOther:''
+    idOther:'',
+    picture:''
 }
 
 @Component({
@@ -28,7 +31,9 @@ export class EditUserPage {
     private alert:AlertController,
     private storage: Storage,
     private navParams:NavParams,
-    private loadingCtrl:LoadingController
+    private loadingCtrl:LoadingController,
+    private navCtrl:NavController,
+    private camera:Camera
    ) 
    {
        this.loggedUser = this.navParams.data.user;
@@ -75,6 +80,24 @@ export class EditUserPage {
         loading.dismiss();
         this.presentErrorAlert('Erro ao atualizar usuário!');
       })  
+  }
+
+  openGallery() {
+    let cameraOptions = {
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: this.camera.DestinationType.FILE_URI,      
+      quality: 100,
+      targetWidth: 1000,
+      targetHeight: 1000,
+      encodingType: this.camera.EncodingType.JPEG,      
+      correctOrientation: true
+    }
+
+    this.camera.getPicture(cameraOptions)
+      .then((file_uri) => {
+        this.loggedUser.picture = file_uri
+      }, 
+      err => console.log(err));   
   }
 
   presentErrorAlert(text:string) {

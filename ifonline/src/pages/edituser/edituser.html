@@ -11,6 +11,11 @@
         <ion-col>
           <ion-list>
 
+            <div class="gallery-button" text-center>
+              <img [src]="loggedUser.picture" />    
+              <ion-icon name="images" on-tap="openGallery()"></ion-icon>
+            </div>
+
             <ion-item>
               <ion-label floating>Username: </ion-label>
               <ion-input type="text" [(ngModel)]="loggedUser.username" disabled name="username" required></ion-input>
