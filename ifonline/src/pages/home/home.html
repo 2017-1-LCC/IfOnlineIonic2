@@ -5,13 +5,12 @@
 </ion-header>
 
 <ion-content>
-  
   <ion-grid class="headerGrid">
     
     <ion-row class="header">
       <ion-col col-4>
         <ion-avatar>
-          <img src="assets/imgs/Linux_Tux_852.png" class="image circle-pic" />
+          <img [src]="loadProfileImage()" class="image circle-pic" />
         </ion-avatar>
       </ion-col>
 

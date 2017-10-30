@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { AlertController, NavParams, LoadingController, NavController  } from 'ionic-angular';
+import { Component, SecurityContext } from '@angular/core';
+import { AlertController, NavParams, LoadingController  } from 'ionic-angular';
+import {DomSanitizer} from '@angular/platform-browser';
 import { UserService } from '../../app/services/user.service'; //
 
 import { Storage } from "@ionic/storage";
@@ -8,11 +9,12 @@ import { Camera } from '@ionic-native/camera';
 export interface User {
     username:'',
     name:'',
+    typeUser:'',
     email:'',
     birthDate:'',
     _id:'',
     idOther:'',
-    picture:''
+    avatar:''
 }
 
 @Component({
@@ -23,6 +25,7 @@ export class EditUserPage {
 
   loggedUser:User;
   token:string;
+  switchImage:boolean=false;
   //createdUser:any={name:''};
 
   constructor(
@@ -32,8 +35,8 @@ export class EditUserPage {
     private storage: Storage,
     private navParams:NavParams,
     private loadingCtrl:LoadingController,
-    private navCtrl:NavController,
-    private camera:Camera
+    private camera:Camera,
+    private domSanitizer:DomSanitizer
    ) 
    {
        this.loggedUser = this.navParams.data.user;
@@ -85,7 +88,7 @@ export class EditUserPage {
   openGallery() {
     let cameraOptions = {
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      destinationType: this.camera.DestinationType.FILE_URI,      
+      destinationType: this.camera.DestinationType.DATA_URL,      
       quality: 100,
       targetWidth: 1000,
       targetHeight: 1000,
@@ -95,7 +98,8 @@ export class EditUserPage {
 
     this.camera.getPicture(cameraOptions)
       .then((file_uri) => {
-        this.loggedUser.picture = file_uri
+        this.loggedUser.avatar = file_uri;
+        this.loadProfileImage();
       }, 
       err => console.log(err));   
   }
@@ -116,6 +120,10 @@ export class EditUserPage {
       buttons: ['Dismiss']
     });
     alert.present();
+  }
+
+  loadProfileImage() {
+    return this.domSanitizer.sanitize(SecurityContext.URL, `data:image/png;base64,${this.loggedUser.avatar}`);
   }
 
 }

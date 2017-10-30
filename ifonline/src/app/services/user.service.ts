@@ -38,7 +38,6 @@ export class UserService {
     headers.append('Content-Type','application/json; charset=UTF-8');
     let options = new RequestOptions({ headers: headers });
 
-    data.typeUser = 'STUDENT';
     const user = JSON.stringify(data); 
 
     return this.http.put(this.baseUrl+'/'+data._id, user, options)
