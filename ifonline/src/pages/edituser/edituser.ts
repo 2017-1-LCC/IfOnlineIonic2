@@ -72,7 +72,6 @@ export class EditUserPage {
 
   update() {
     let loading = this.loadingCtrl.create({content:'Carregando...'});
-
     loading.present();
 
     this.userService.update(this.token,this.loggedUser)

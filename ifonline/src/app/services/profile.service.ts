@@ -31,17 +31,5 @@ export class ProfileService {
         }
         return this.http.get(this.baseUrl, options)
             .map(res => res.json())
-
-        /*
-        return new Promise((resolve, reject) => {
-            this.http.get(this.baseUrl, options)
-                .map(res => res.json())
-                .subscribe(data => {
-                    resolve(data);
-                }, err => {
-                    reject(err);
-                })
-        })
-        */
     }
 }

@@ -1,32 +1,41 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{group.discipline}}</ion-title>
+    <ion-title>Grupo Selecionado</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-  <ion-grid style="background-color: cornflowerblue; height:25%; color:white">
+  <ion-grid style="background-color: cornflowerblue; height:35%; color:white">
     <ion-row justify-content-center align-items-center>
-        <p>Turma: {{group.academicClass}}</p> - 
-        <ion-icon name="heart"></ion-icon> {{2+2}} -  {{isOwner}}
+        <p style="color:black;">{{group.discipline}}</p>
     </ion-row>
 
-    <ion-row justify-content-center align-items-center >
-      <ion-col col-3 *ngIf="!isMember && !isTeacher">
-      <button ion-button color="secondary" full (click)="addStudent()" >Entrar</button>
+    <ion-row>
+      <div class="infoGroup">
+        <p></p>
+        <p>Nome: {{group.admin.name}} </p>
+        <p>E-mail: {{group.admin.email}} </p>
+        <p>Turma: {{group.academicClass}}</p>
+        <p>Total de Alunos: {{group.students.length}} </p>
+      </div>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="buttonGroup" col-3 *ngIf="!isMember && !isTeacher">
+        <ion-icon style="color:green; font-size: 50px;" name="add-circle" (click)="addStudent()" ></ion-icon>
       </ion-col>
 
-      <ion-col col-3 *ngIf="isMember && !isTeacher">
-      <button ion-button color="danger" full (click)="removeStudent()" >Sair</button>
+      <ion-col class="buttonGroup" col-3 *ngIf="isMember && !isTeacher">
+        <ion-icon style="color:red; font-size: 50px;" name="exit" (click)="removeStudent()" ></ion-icon>
       </ion-col>
 
-      <ion-col col-3 *ngIf="isOwner">
-      <button ion-button color="danger" full (click)="removeGroup()" >Excluir</button>
+      <ion-col class="buttonGroup" col-3 *ngIf="isOwner">
+         <ion-icon style="color:red; font-size: 50px;" name="trash" (click)="removeGroup()" ></ion-icon>
       </ion-col>
 
-      <ion-col col-3 *ngIf="isOwner">
-        <button ion-button full (click)="enableEditGroup()">Editar</button>
+      <ion-col class="buttonGroup" col-3 *ngIf="isOwner">
+         <ion-icon style="color:blue; font-size: 50px;" name="cog" (click)="enableEditGroup()"></ion-icon>
       </ion-col>
 
     </ion-row>

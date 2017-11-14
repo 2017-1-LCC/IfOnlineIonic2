@@ -18,17 +18,10 @@ export class UserService {
     let options = new RequestOptions({ headers: headers });
 
     data.typeUser = 'STUDENT';
-    const user = JSON.stringify(data); 
-    
-    return new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl, user, options)
+    const user = JSON.stringify(data);
+
+    return  this.http.post(this.baseUrl, user, options)
         .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        }, (err) => {
-          reject(err);
-        })
-    })
   }
 
   update(token, data) {
@@ -42,18 +35,7 @@ export class UserService {
 
     return this.http.put(this.baseUrl+'/'+data._id, user, options)
               .map( res => res.json())
-    
-    /*
-    return new Promise((resolve, reject) => {
-      this.http.put(this.baseUrl, user, options)
-        .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        }, (err) => {
-          reject(err);
-        })
-    })
-    */
+
   }
 
 
