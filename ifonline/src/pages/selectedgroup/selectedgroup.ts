@@ -31,6 +31,10 @@ export class SelectedGroupPage {
       
   }
 
+  ionViewWillEnter() {
+    this.loadGroup();
+  }  
+
   ngOnInit() {
     this.storage.get('token')
       .then((token) => {

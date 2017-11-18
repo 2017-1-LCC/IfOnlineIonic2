@@ -36,6 +36,7 @@
               <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="group.dateEnd" name="dateEnd" required></ion-datetime>
             </ion-item>
 
+            <!-- HORÁRIO DAS AULAS -->
             <ion-item>
               <ion-label style="text-align: center">Horário das Aulas</ion-label>
               <ion-icon item-right name="add-circle" color="secondary" (click)="addClassSchedule()"></ion-icon>
@@ -58,16 +59,45 @@
 
                 <ion-item>
                   <ion-label floating>Hora de início</ion-label>
-                  <ion-datetime min="19:00" displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="classSchedule.startTime" name="classSchedule.startTime{{i}}" required></ion-datetime>
+                  <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="classSchedule.startTime" name="classSchedule.startTime{{i}}" required></ion-datetime>
                 </ion-item>
 
                 <ion-item>
                   <ion-label floating>Hora de termino</ion-label>
-                  <ion-datetime min="20:00" max="22:00" displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="classSchedule.endTime" name="classSchedule.endTime{{i}}" required></ion-datetime>
+                  <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="classSchedule.endTime" name="classSchedule.endTime{{i}}" required></ion-datetime>
                 </ion-item>
               </div>
             </div>
 
+             <!-- ATIVIDADES PROGRAMADAS -->
+            <ion-item>
+              <ion-label style="text-align: center">Atividades Programadas</ion-label>
+              <ion-icon item-right name="add-circle" color="secondary" (click)="addScheduledActivity()"></ion-icon>
+            </ion-item>
+
+            <div *ngFor="let scheduledActivity of group.scheduledActivity; let i = index">
+              <div *ngIf="!scheduledActivity.removed">
+                <ion-icon item-left name="remove-circle" style="font-size: 25px;" color="danger" (click)="removeScheduledActivity(scheduledActivity)"></ion-icon>
+               
+                <ion-item>
+                    <ion-label>Descrição da atividade</ion-label>
+                    <ion-textarea rows="4" type="text" [(ngModel)]="scheduledActivity.description" name="scheduledActivity.description{{i}}" required></ion-textarea>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label floating>Data de envio</ion-label>
+                    <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="scheduledActivity.sendDate" name="scheduledActivity.sendDate{{i}}" required></ion-datetime>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label floating>Data de entrega</ion-label>
+                    <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="scheduledActivity.deliveryDate" name="scheduledActivity.deliveryDate{{i}}" required></ion-datetime>
+                </ion-item>
+
+              </div>
+            </div>
+
+             <!-- PROVAS DA DISCIPLINA -->
             <ion-item>
               <ion-label style="text-align: center">Provas da Disciplina</ion-label>
               <ion-icon item-right name="add-circle" color="secondary" (click)="addProof()"></ion-icon>

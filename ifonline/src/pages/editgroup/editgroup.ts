@@ -17,6 +17,12 @@ export interface Group {
         value:'',
         removed:false
       }],
+      scheduledActivity: [{
+          description:'',
+          sendDate:'',
+          deliveryDate:'',
+          removed:false
+      }],
       admin:{}
 }
 
@@ -94,6 +100,14 @@ export class EditGroupPage {
 
   removeProof(proof) {
     return proof.removed = true;
+  }
+
+  addScheduledActivity() {
+    this.group.scheduledActivity.push({description:'',sendDate:'',deliveryDate:'',removed:false});
+  }
+
+  removeScheduledActivity(scheduledActivity) {
+    return scheduledActivity.removed = true;
   }
 
   addClassSchedule() {
