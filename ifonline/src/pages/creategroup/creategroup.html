@@ -33,7 +33,7 @@
             
             <ion-item>
               <ion-label floating>Encerramento da Disciplina</ion-label>
-              <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="group.dateEnd" name="dateEnd" required></ion-datetime>
+              <ion-datetime displayFormat="DD/MM/YYYY" [max]="2020" pickerFormat="DD/MMM/YYYY" [(ngModel)]="group.dateEnd" name="dateEnd" required></ion-datetime>
             </ion-item>
 
             <ion-item>
@@ -43,7 +43,7 @@
 
             <div *ngFor="let classSchedule of group.classSchedule; let i = index">
               <div *ngIf="!classSchedule.removed">
-                <ion-icon item-left name="remove-circle" style="font-size: 25px;" color="danger" (click)="removeClassSchedule(classSchedule)"></ion-icon>
+                <ion-icon item-left name="remove-circle" style="font-size: 25px;" color="danger" (click)="removeItem(classSchedule)"></ion-icon>
                 <ion-item>
                   <ion-label floating>Dia na samana</ion-label>
                   <ion-select [(ngModel)]="classSchedule.dayOfWeek" name="classSchedule.dayOfWeek{{i}}">
@@ -69,13 +69,40 @@
             </div>
 
             <ion-item>
+              <ion-label style="text-align: center">Atividades Programadas</ion-label>
+              <ion-icon item-right name="add-circle" color="secondary" (click)="addScheduledActivity()"></ion-icon>
+            </ion-item>
+
+            <div *ngFor="let scheduledActivity of group.scheduledActivity; let i = index">
+              <div *ngIf="!scheduledActivity.removed">
+                <ion-icon item-left name="remove-circle" style="font-size: 25px;" color="danger" (click)="removeItem(scheduledActivity)"></ion-icon>
+               
+                <ion-item>
+                    <ion-label>Descrição da atividade</ion-label>
+                    <ion-textarea rows="4" type="text" [(ngModel)]="scheduledActivity.description" name="scheduledActivity.description{{i}}" required></ion-textarea>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label floating>Data de envio</ion-label>
+                    <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="scheduledActivity.sendDate" name="scheduledActivity.sendDate{{i}}" required></ion-datetime>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label floating>Data de entrega</ion-label>
+                    <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="scheduledActivity.deliveryDate" name="scheduledActivity.deliveryDate{{i}}" required></ion-datetime>
+                </ion-item>
+
+              </div>
+            </div>
+
+            <ion-item>
               <ion-label style="text-align: center">Provas da Disciplina</ion-label>
               <ion-icon item-right name="add-circle" color="secondary" (click)="addProof()"></ion-icon>
             </ion-item>
 
             <div *ngFor="let proof of group.proof; let i = index">
                 <div *ngIf="!proof.removed">
-                    <ion-icon item-left name="remove-circle" style="font-size: 25px;" color="danger" (click)="removeProof(proof)"></ion-icon>
+                    <ion-icon item-left name="remove-circle" style="font-size: 25px;" color="danger" (click)="removeItem(proof)"></ion-icon>
                 <ion-item>
                     <ion-label floating>Assuntos da prova</ion-label>
                     <ion-textarea rows="4" type="text" [(ngModel)]="proof.subjects" name="proof.subjects{{i}}" required></ion-textarea>

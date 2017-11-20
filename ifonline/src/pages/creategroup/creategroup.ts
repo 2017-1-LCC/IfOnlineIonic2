@@ -28,6 +28,12 @@ export class CreateGroupPage {
         value:'',
         removed:false
       }],
+      scheduledActivity: [{
+          description:'',
+          sendDate:'',
+          deliveryDate:'',
+          removed:false
+      }],
       admin:{}
   };
   idAdmin:string;
@@ -79,8 +85,20 @@ export class CreateGroupPage {
     this.group.proof.push({subjects:'',dateProof:'',value:'',removed:false});
   }
 
+  removeItem(item) {
+    return item.removed = true;
+  }
+
   removeProof(proof) {
     return proof.removed = true;
+  }
+
+  addScheduledActivity() {
+    this.group.scheduledActivity.push({description:'',sendDate:'',deliveryDate:'',removed:false});
+  }
+
+  removeScheduledActivity(scheduledActivity) {
+    return scheduledActivity.removed = true;
   }
 
   addClassSchedule() {
