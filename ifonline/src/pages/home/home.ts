@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, SecurityContext } from '@angular/core';
+import { NavController, App } from 'ionic-angular';
 import { Storage } from "@ionic/storage";
+
+import {DomSanitizer} from '@angular/platform-browser';
 
 import { ProfileService } from '../../app/services/profile.service';
 import { CreateGroupPage } from '../creategroup/creategroup';
 import { SelectedGroupPage } from '../selectedgroup/selectedgroup';
+import { EditUserPage } from '../edituser/edituser';
 import { LoginPage } from '../login/login';
 
 @Component({
@@ -13,14 +16,17 @@ import { LoginPage } from '../login/login';
 })
 export class HomePage {
 
-  loggedUser:any={_id:'', username:'', user:{typeUser:''}, groups:[]};
+  loggedUser:any={_id:'', username:'', user:{typeUser:'',avatar:''}, groups:[]};
   token:string;
   isTeacher:boolean;
 
-  constructor(private navCtrl: NavController, private profileService:ProfileService,
-    private storage: Storage) {
-
-  }
+  constructor(
+    private navCtrl: NavController, 
+    private profileService:ProfileService,
+    private storage: Storage,
+    private app:App,
+    private domSanitizer:DomSanitizer
+  ) {  }
 
   ionViewWillEnter() {
     this.storage.get('token')
@@ -38,10 +44,11 @@ export class HomePage {
     this.profileService.loadProfile(this.token)
       .subscribe(result => {
         this.loggedUser = result;
+        this.loadProfileImage();
       }, err => {
         this.storage.remove('token');
         this.loggedUser = null;
-        this.navCtrl.push(LoginPage);
+        this.navCtrl.setRoot(LoginPage);
         console.log("erro ao carregar profile: ",err);
       })
   }
@@ -60,11 +67,32 @@ export class HomePage {
     });
   }
 
+  editProfile() {
+    //console.log("click em configurações",this.loggedUser);
+    const data = {
+      username:this.loggedUser.user.username,
+      avatar:this.loggedUser.user.avatar,
+      typeUser:this.loggedUser.user.typeUser,
+      name:this.loggedUser.name,
+      email:this.loggedUser.email,
+      birthDate:this.loggedUser.birthDate,
+      _id:this.loggedUser.user._id,
+      idOther:this.loggedUser._id
+    }
+    this.navCtrl.push(EditUserPage,{
+      user:data
+    });
+  }
+
+  loadProfileImage() {
+    return this.domSanitizer.sanitize(SecurityContext.URL, `data:image/png;base64,${this.loggedUser.user.avatar}`);
+  }
+
   logout() {
     this.storage.remove('token');
-    this.loggedUser = {_id:'', username:'', user:{typeUser:''}, groups:[]};
+    this.loggedUser = {_id:'', username:'', user:{typeUser:'',avatar:''}, groups:[]};
     this.token = null;
-    this.navCtrl.setRoot(LoginPage);
+    this.app.getRootNav().setRoot(LoginPage);
   }
 
   newGroup() {

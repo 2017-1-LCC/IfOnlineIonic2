@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar align-title="center">
-    <ion-title>Cadastrar Grupo</ion-title>
+    <ion-title>Alterar Grupo</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -33,9 +33,10 @@
             
             <ion-item>
               <ion-label floating>Encerramento da Disciplina</ion-label>
-              <ion-datetime displayFormat="DD/MM/YYYY" [max]="2020" pickerFormat="DD/MMM/YYYY" [(ngModel)]="group.dateEnd" name="dateEnd" required></ion-datetime>
+              <ion-datetime displayFormat="DD/MM/YYYY" [max]="2050" pickerFormat="DD/MMM/YYYY" [(ngModel)]="group.dateEnd" name="dateEnd" required></ion-datetime>
             </ion-item>
 
+            <!-- HORÁRIO DAS AULAS -->
             <ion-item>
               <ion-label style="text-align: center">Horário das Aulas</ion-label>
               <ion-icon item-right name="add-circle" color="secondary" (click)="addClassSchedule()"></ion-icon>
@@ -68,6 +69,7 @@
               </div>
             </div>
 
+             <!-- ATIVIDADES PROGRAMADAS -->
             <ion-item>
               <ion-label style="text-align: center">Atividades Programadas</ion-label>
               <ion-icon item-right name="add-circle" color="secondary" (click)="addScheduledActivity()"></ion-icon>
@@ -95,6 +97,7 @@
               </div>
             </div>
 
+             <!-- PROVAS DA DISCIPLINA -->
             <ion-item>
               <ion-label style="text-align: center">Provas da Disciplina</ion-label>
               <ion-icon item-right name="add-circle" color="secondary" (click)="addProof()"></ion-icon>
@@ -110,7 +113,7 @@
 
                 <ion-item>
                     <ion-label floating>Data da prova</ion-label>
-                    <ion-datetime displayFormat="DD/MMM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="proof.dateProof" name="proof.startTime{{i}}" required></ion-datetime>
+                    <ion-datetime displayFormat="DD/MM/YYYY" [max]="2050" pickerFormat="DD/MM/YYYY" [(ngModel)]="proof.dateProof" name="proof.startTime{{i}}" required></ion-datetime>
                 </ion-item>
 
                 <ion-item>
@@ -127,7 +130,7 @@
       
       <ion-row>
         <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full (click)="create()" [disabled]="!newGroupForm.form.valid">Cadastrar</button>
+          <button ion-button class="submit-btn" full (click)="update()" [disabled]="!newGroupForm.form.valid">Editar</button>
         </ion-col>
       </ion-row>
       

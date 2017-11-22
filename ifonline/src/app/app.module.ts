@@ -15,13 +15,15 @@ import { GroupsPage } from '../pages/groups/groups';
 import { CreateUserPage } from '../pages/createuser/createuser';
 import { CreateGroupPage } from '../pages/creategroup/creategroup';
 import { SelectedGroupPage } from '../pages/selectedgroup/selectedgroup';
+import { EditGroupPage } from '../pages/editgroup/editgroup';
+import { EditUserPage } from '../pages/edituser/edituser';
 
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { ProfileService } from './services/profile.service'; 
 import { GroupService } from './services/groups.service';
 
-
+import { Camera } from '@ionic-native/camera';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -36,7 +38,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     CreateUserPage,
     GroupsPage,
     CreateGroupPage,
-    SelectedGroupPage
+    SelectedGroupPage,
+    EditGroupPage,
+    EditUserPage
   ],
   imports: [
     HttpModule,
@@ -55,7 +59,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     CreateUserPage,
     GroupsPage,
     CreateGroupPage,
-    SelectedGroupPage
+    SelectedGroupPage,
+    EditGroupPage,
+    EditUserPage
   ],
   providers: [
     StatusBar,
@@ -64,6 +70,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     UserService,
     ProfileService,
     GroupService,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler, deps:[Storage] }
   ]
 })

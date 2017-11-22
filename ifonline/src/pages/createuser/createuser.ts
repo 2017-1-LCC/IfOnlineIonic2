@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,  AlertController  } from 'ionic-angular';
+import { NavController,  AlertController, LoadingController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { UserService } from '../../app/services/user.service';
  
@@ -13,19 +13,40 @@ export class CreateUserPage {
   user:Object={};
   createdUser:any={name:''};
 
-  constructor(public navCtrl: NavController, public userService:UserService, public alert:AlertController ) {
+  constructor(
+    public navCtrl: NavController, 
+    public userService:UserService, 
+    public alert:AlertController,
+    private loadingCtrl:LoadingController,
+  ) 
+  {
 
   }
 
   create() {
+    let loading = this.loadingCtrl.create({content:'Carregando...'});
+    loading.present();
+
     this.userService.create(this.user)
-      .then((result) => {
+      .subscribe((result) => {
         this.createdUser = result;
         this.presentAlert(this.createdUser.name);
         this.navCtrl.push(LoginPage);
+        loading.dismiss();
       }, (err) => {
+        loading.dismiss();
+        this.presentErrorAlert('Erro ao cadastrar usuário!');
         console.log("error: ",err);
       })
+  }
+
+  presentErrorAlert(text:string) {
+    const alert = this.alert.create({
+      title: 'Error',
+      subTitle: 'Erro : '+text,
+      buttons: ['Dismiss']
+    });
+    alert.present();
   }
 
   presentAlert(name) {
@@ -36,4 +57,5 @@ export class CreateUserPage {
     });
     alert.present();
   }
+
 }

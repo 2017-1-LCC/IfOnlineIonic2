@@ -5,65 +5,110 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-grid style="background-color: cornflowerblue; height:25%; color:white">
-    <ion-row justify-content-center align-itens-center>
-      admin: {{isOwner}}
-    </ion-row>
+
+  <ion-grid style="background-color: cornflowerblue; height:35%; color:white">
     <ion-row justify-content-center align-items-center>
-        <h4>{{group.discipline}}</h4>
-    </ion-row>
-    <ion-row justify-content-center align-items-center>
-        <p>{{group.academicClass}}</p>
-    </ion-row>
-    <ion-row justify-content-center align-items-center>
-        <ion-icon name="heart"></ion-icon> {{2+2}}
+        <p style="color:black;">{{group.discipline}}</p>
     </ion-row>
 
-    <ion-row justify-content-center align-items-center *ngIf="!isMember && !isTeacher">
-      <button ion-button color="secondary" full (click)="addStudent()" >Participar</button>
-    </ion-row>
-  
-    <ion-row justify-content-center align-items-center *ngIf="isMember && !isTeacher">
-      <button ion-button color="danger" full (click)="removeStudent()" >Sair</button>
-    </ion-row>
-
-    <ion-row justify-content-center align-items-center *ngIf="isOwner">
-      <button ion-button color="danger" full (click)="removeGroup()" >Excluir</button>
+    <ion-row>
+      <div class="infoGroup">
+        <p></p>
+        <p>Nome: {{group.admin.name}} </p>
+        <p>E-mail: {{group.admin.email}} </p>
+        <p>Turma: {{group.academicClass}}</p>
+        <p>Total de alunos no grupo: {{group.students.length}} </p>
+      </div>
     </ion-row>
 
+    <ion-row>
+      <ion-col class="buttonGroup" col-3 *ngIf="!isMember && !isTeacher">
+        <ion-icon style="color:green;" name="add-circle" (click)="addStudent()" ></ion-icon>
+      </ion-col>
+
+      <ion-col class="buttonGroup" col-3 *ngIf="isMember && !isTeacher">
+        <ion-icon style="color:red;" name="exit" (click)="removeStudent()" ></ion-icon>
+      </ion-col>
+
+      <ion-col class="buttonGroup" col-3 *ngIf="isOwner">
+         <ion-icon style="color:red;" name="trash" (click)="removeGroup()" ></ion-icon>
+      </ion-col>
+
+      <ion-col class="buttonGroup" col-3 *ngIf="isOwner">
+         <ion-icon style="color:blue;" name="cog" (click)="enableEditGroup()"></ion-icon>
+      </ion-col>
+
+    </ion-row>
 
   </ion-grid>
 
   <ion-grid>
-    <ion-list-header>
-      Provas 
-      <button ion-button icon-only (click)="addProva()">  
-        <ion-icon name="add"></ion-icon> 
-      </button>
+    <ion-list-header class="headerList">
+      Objetivo da disciplina
     </ion-list-header>
     <ion-list>
-      <ion-item *ngFor="let proof of group.proof" (click)="selectGroup(group)">
-        <ion-avatar item-start>
-          <img src="http://placehold.it/100x100">
-        </ion-avatar>
-        <h2>{{group.dateProof}}</h2>
-        <p>{{group.subjects}}</p>
-        <ion-icon name="heart"></ion-icon>{{group.value}}
+      <ion-item text-wrap>
+        <ion-row>
+          <ion-col col-12>
+            <p>{{group.description}}</p>
+          </ion-col>
+        </ion-row>
       </ion-item>
     </ion-list>
   </ion-grid>
 
-    <ion-grid>
-    <ion-list-header>
-      Alunos
+  <ion-grid>
+    <ion-list-header class="headerList">
+      Horário das Aulas
     </ion-list-header>
     <ion-list>
-      <ion-item *ngFor="let student of group.students" (click)="selectGroup(group)">
+      <ion-item *ngFor="let classSchedule of group.classSchedule" >
+        <ion-row>
+          <ion-col col-4>
+            <p>{{classSchedule.dayOfWeek}}</p>
+          </ion-col>
+          <ion-col col-8>
+            <p>Inicia ás: {{classSchedule.startTime}}</p>
+            <p>Termina ás: {{classSchedule.endTime}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-list-header class="headerList">
+      Provas
+    </ion-list-header>
+    <ion-list>
+      <ion-item *ngFor="let proof of group.proof" text-wrap>
+        <ion-row>
+          <b>{{proof.subjects}}</b>
+        </ion-row>
+        <br/>
+        <ion-row>
+          <ion-col col-8>
+            <p>Data: {{proof.dateProof | date:'dd-MM-yyyy'}}</p>
+          </ion-col>
+          <ion-col col-4>
+            <p>Valor: {{proof.value}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-list-header class="headerList">
+     Alunos
+    </ion-list-header>
+    <ion-list>
+      <ion-item *ngFor="let student of group.students" (click)="selectStudent(student)">
         <ion-avatar item-start>
           <img src="http://placehold.it/100x100">
         </ion-avatar>
         <h2>{{student.name}}</h2>
-        <p>{{group.email}}</p>
+        <p>{{student.email}}</p>
       </ion-item>
     </ion-list>
   </ion-grid>
