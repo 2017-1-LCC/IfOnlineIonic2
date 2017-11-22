@@ -18,17 +18,24 @@ export class UserService {
     let options = new RequestOptions({ headers: headers });
 
     data.typeUser = 'STUDENT';
-    const user = JSON.stringify(data); 
-    
-    return new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl, user, options)
+    const user = JSON.stringify(data);
+
+    return  this.http.post(this.baseUrl, user, options)
         .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        }, (err) => {
-          reject(err);
-        })
-    })
+  }
+
+  update(token, data) {
+    let headers = new Headers();
+    headers.append('Authorization','Bearer '+token);
+    headers.append('Accept','application/json');
+    headers.append('Content-Type','application/json; charset=UTF-8');
+    let options = new RequestOptions({ headers: headers });
+
+    const user = JSON.stringify(data); 
+
+    return this.http.put(this.baseUrl+'/'+data._id, user, options)
+              .map( res => res.json())
+
   }
 
 

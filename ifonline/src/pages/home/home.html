@@ -4,44 +4,33 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-grid style="background-color: cornflowerblue; height:35%; color:white">
+<ion-content>
+  <ion-grid class="headerGrid">
     
     <ion-row class="header">
       <ion-col col-4>
         <ion-avatar>
-          <img src="assets/imgs/Linux_Tux_852.png" class="image circle-pic" />
+          <img [src]="loadProfileImage()" class="image circle-pic" />
         </ion-avatar>
       </ion-col>
 
       <ion-col col-8>
-        <div class="button-container">
-          <button class="icons" style="border: none;" 
-          (click)="newGroup()"
-          *ngIf="loggedUser.user.typeUser === 'TEACHER'">
-            <ion-icon name="add-circle"></ion-icon>
-          </button>
-          <button class="icons">
-            <ion-icon name="settings"></ion-icon>
-          </button>
-          <button class="icons" (click)="logout()">
-            <ion-icon name="exit"></ion-icon>
-          </button>
-        </div>
-        <h4>{{loggedUser.name}}</h4>
-        <p>{{loggedUser.user.username}} || {{loggedUser.email}}</p> 
+        <div class="titleHeader">
+          <h4>{{loggedUser.name}}</h4>
+          <p>@{{loggedUser.user.username}}</p>
+        </div> 
       </ion-col>
 
     </ion-row>
 
   </ion-grid>
-
+  
   <ion-grid>
     <ion-list-header>
       Groups
     </ion-list-header>
     <ion-list>
-      <ion-item *ngFor="let group of loggedUser.groups" (click)="selectGroup(group)">
+      <ion-item *ngFor="let group of loggedUser.groups" (click)="selectGroup(group)" text-wrap>
         <ion-avatar item-start>
           <img src="assets/imgs/sobre.png">
         </ion-avatar>
@@ -50,5 +39,23 @@
       </ion-item>
     </ion-list>
   </ion-grid>
+
+  <ion-fab right bottom>
+    <button ion-fab color="light"> <ion-icon name="attach"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button class="mycss" ion-fab (click)="newGroup()" *ngIf="loggedUser.user.typeUser === 'TEACHER'">
+        <ion-icon name="book"></ion-icon>
+      </button>
+      <ion-label class="novoGrupo" *ngIf="loggedUser.user.typeUser === 'TEACHER'">Novo grupo</ion-label>
+      <button ion-fab (click)="editProfile()">
+        <ion-icon name="options"></ion-icon>
+      </button>
+      <ion-label [ngClass]="(loggedUser.user.typeUser === 'TEACHER')?'config':'novoGrupo'">Configurações</ion-label>
+      <button ion-fab (click)="logout()">
+        <ion-icon name="power"></ion-icon>
+      </button>
+      <ion-label class="logout">Sair</ion-label>
+    </ion-fab-list>   
+  </ion-fab>
 
 </ion-content>

@@ -14,7 +14,7 @@
 
             <ion-item>
               <ion-label floating>Username</ion-label>
-              <ion-input type="text" [(ngModel)]="user.username" name="username" required></ion-input>
+              <ion-input type="text" [(ngModel)]="user.username" name="username" required (ngModelChange)="user.username = $event.toLocaleLowerCase()"></ion-input>
             </ion-item>
 
             <ion-item>

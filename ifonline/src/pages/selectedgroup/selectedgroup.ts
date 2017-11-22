@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { NavParams, AlertController, LoadingController, NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { GroupService } from '../../app/services/groups.service';
+import { EditGroupPage } from '../editgroup/editgroup';
 
 @Component({
   selector:'selected-group',
@@ -10,7 +11,7 @@ import { GroupService } from '../../app/services/groups.service';
 
 export class SelectedGroupPage {
 
-  group:any={admin:{},proof:[],students:[]};
+  group:any={admin:{name:'',email:''},proof:[],students:[]};
   idGroup:string='';
   idLoggedUser:string='';
   isOwner:boolean=false;
@@ -23,11 +24,16 @@ export class SelectedGroupPage {
     private groupService: GroupService, 
     private storage:Storage,
     private alertCtrl:AlertController,
-    private loadingCtrl:LoadingController
+    private loadingCtrl:LoadingController,
+    private navCtrl:NavController
   ) 
   {
       
   }
+
+  ionViewWillEnter() {
+    this.loadGroup();
+  }  
 
   ngOnInit() {
     this.storage.get('token')
@@ -62,9 +68,7 @@ export class SelectedGroupPage {
         } else {
           this.isMember = false;
         }
-
-        console.log("retorno do map: ",data);
-
+        
       }, err => {
         console.log("erro ao buscar grupo full: ",err);
       })
@@ -108,6 +112,12 @@ export class SelectedGroupPage {
       })
   }
 
+  enableEditGroup() {
+    this.navCtrl.push(EditGroupPage, {
+      groupToEdit:this.group
+    });
+  }
+
   removeGroup() {
     console.log('ação para remover grupo');
   }
@@ -115,58 +125,6 @@ export class SelectedGroupPage {
   selectProof(proof) {
     console.log("prova selecionada: ",proof);
   }
-
-  addProva() {
-    console.log("adicionando prova");
-    const alert = this.alertCtrl.create({
-      title: 'Inserir prova',
-      inputs: [
-        {
-          name: 'subjects',
-          placeholder: 'Assuntos',
-          type: 'text',
-         
-        },
-        {
-          name: 'dateProof',
-          placeholder: 'Data',
-          type: 'date'
-        },
-        {
-          name: 'value',
-          placeholder: 'Valor total',
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Cadastrar',
-          handler: data => {
-
-            let loading = this.loadingCtrl.create({content:'Carregando...'});
-
-            loading.present();
-
-            this.groupService.insertProofOnGroup(this.token, this.idGroup, data)
-              .subscribe(result => {
-                this.loadGroup();
-                loading.dismiss();
-                this.presentSuccessAlert('Prova inserida com sucesso!');
-                alert.dismiss();
-              })
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
 
   presentErrorAlert(text:string) {
     const alert = this.alertCtrl.create({

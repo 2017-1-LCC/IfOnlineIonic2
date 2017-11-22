@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { FormControl } from '@angular/forms';
+import 'rxjs/add/operator/debounceTime';
+
 import { GroupService } from '../../app/services/groups.service';
 import { ProfileService } from '../../app/services/profile.service';
 import { Storage } from "@ionic/storage";
@@ -16,15 +19,39 @@ export class GroupsPage {
   token:string='';
   groups:any=[];
   isTeacher:boolean;
+  searchTerm:string='';
+  searchControl:FormControl;
+  searching:any=false;
 
   constructor(
     private navCtrl: NavController, 
     private groupsService: GroupService, 
     private storage: Storage,
-    private profileService: ProfileService
+    private profileService: ProfileService,
   ) 
   {
+    this.searchControl = new FormControl();
+  }
 
+  ionViewDidLoad() {
+    this.filterGroups();
+    this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
+        this.searching = false;
+        this.filterGroups();
+
+    });
+  }
+
+  ionViewWillEnter() {
+    this.storage.get('token')
+      .then((token) => {
+        this.token = token;
+        this.loadGroups();
+        this.loadProfile(); 
+      })
+      .catch( err => {
+        console.log("erro no ngOnInit(): ",err);
+      })
   }
 
   ngOnInit() {
@@ -71,6 +98,14 @@ export class GroupsPage {
         this.navCtrl.push(LoginPage);
         console.log("erro ao carregar profile: ",err);
       })
+  }
+
+  onSearchInput(){
+      this.searching = true;
+  }
+
+  filterGroups() {
+    this.groups = this.groupsService.filterGroups(this.searchTerm);
   }
 
 }

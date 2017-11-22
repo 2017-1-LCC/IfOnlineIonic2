@@ -2,20 +2,9 @@ import { Component } from '@angular/core';
 import { NavController,LoadingController , NavParams, AlertController } from 'ionic-angular';
 import { Storage } from "@ionic/storage";
 import { GroupService } from '../../app/services/groups.service';
-import { HomePage } from '../home/home';
+//import { HomePage } from '../home/home';
 
-@Component({
-  selector: 'create-group',
-  templateUrl: 'creategroup.html'
-})
-export class CreateGroupPage {
-
-  group:any={
-      discipline:'',
-      description:'',
-      academicClass:'',
-      dateStart:'',
-      dateEnd:'',
+export interface Group {
       classSchedule:[{
         dayOfWeek:'',
         startTime:'',
@@ -35,8 +24,15 @@ export class CreateGroupPage {
           removed:false
       }],
       admin:{}
-  };
-  idAdmin:string;
+}
+
+@Component({
+  selector: 'edit-group',
+  templateUrl: 'editgroup.html'
+})
+export class EditGroupPage {
+
+  group:Group;
   token:string;
   
 
@@ -48,8 +44,27 @@ export class CreateGroupPage {
     private storage: Storage,
     public loadingCtrl:LoadingController
     ) {
-      this.idAdmin = this.navParams.data;
+      this.group = this.navParams.data.groupToEdit;
     }
+
+
+  ionViewWillEnter() {
+    let tabs = document.querySelectorAll('.tabbar');
+    if ( tabs !== null ) {
+      Object.keys(tabs).map((key) => {
+        tabs[ key ].style.transform = 'translateY(56px)';
+      });
+    } // end if
+  }
+
+  ionViewDidLeave() {
+    let tabs = document.querySelectorAll('.tabbar');
+    if ( tabs !== null ) {
+      Object.keys(tabs).map((key) => {
+        tabs[ key ].style.transform = 'translateY(0)';
+      });
+    } // end if
+  }
 
   ngOnInit() {
     this.storage.get('token')
@@ -62,18 +77,16 @@ export class CreateGroupPage {
   }
 
 
-  create() {
+  update() {
    let loading = this.loadingCtrl.create({content:'Carregando...'});
 
    loading.present();
 
-   this.group.admin = this.idAdmin;
-   
-    this.groupService.createGroup(this.token, this.group)
+    this.groupService.updateGroup(this.token, this.group)
       .subscribe( result => {
         this.presentAlert(result.discipline);
         loading.dismiss();
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.pop();
       }, err => {
         loading.dismiss();
         this.presentErrorAlert('Erro ao cadastrar grupo!');
@@ -83,10 +96,6 @@ export class CreateGroupPage {
 
   addProof() {
     this.group.proof.push({subjects:'',dateProof:'',value:'',removed:false});
-  }
-
-  removeItem(item) {
-    return item.removed = true;
   }
 
 /*
@@ -102,6 +111,9 @@ export class CreateGroupPage {
     return classSchedule.removed = true;
   }
 */
+  removeItem(item) {
+    return item.removed = true;
+  }
 
   addScheduledActivity() {
     this.group.scheduledActivity.push({description:'',sendDate:'',deliveryDate:'',removed:false});
@@ -116,7 +128,7 @@ export class CreateGroupPage {
   presentAlert(name) {
     const alert = this.alert.create({
       title: 'Sucesso',
-      subTitle: 'Grupo '+name+' cadastrado com sucesso!',
+      subTitle: 'Grupo '+name+' alterado com sucesso!',
       buttons: ['Dismiss']
     });
     alert.present();

@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar align-title="center">
+    <ion-title>Alterar Usuário</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content  padding>
+  <div>
+    <form #editUserForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list>
+            <div class="gallery-button" text-center>
+              <img [src]="loadProfileImage()" *ngIf="loggedUser.avatar" style="width: 100%; height: 100px"/>
+              <ion-icon name="images" on-tap="openGallery()"></ion-icon>
+            </div>
+
+            <ion-item>
+              <ion-label floating>Username: </ion-label>
+              <ion-input type="text" [(ngModel)]="loggedUser.username" disabled name="username" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label floating>Nome Completo</ion-label>
+              <ion-input type="text" [(ngModel)]="loggedUser.name" name="name" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label floating>Email</ion-label>
+              <ion-input type="email" [(ngModel)]="loggedUser.email" name="email" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label floating>Data Nascimento</ion-label>
+              <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="loggedUser.birthDate" name="birthDate" required></ion-datetime>
+            </ion-item>
+
+          </ion-list>
+
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full (click)="update()" [disabled]="!editUserForm.form.valid">Atualizar</button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+  </div>
+</ion-content>
