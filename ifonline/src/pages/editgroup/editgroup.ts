@@ -98,10 +98,19 @@ export class EditGroupPage {
     this.group.proof.push({subjects:'',dateProof:'',value:'',removed:false});
   }
 
+/*
   removeProof(proof) {
     return proof.removed = true;
   }
 
+  removeScheduledActivity(scheduledActivity) {
+    return scheduledActivity.removed = true;
+  }
+
+  removeClassSchedule(classSchedule) {
+    return classSchedule.removed = true;
+  }
+*/
   removeItem(item) {
     return item.removed = true;
   }
@@ -110,17 +119,11 @@ export class EditGroupPage {
     this.group.scheduledActivity.push({description:'',sendDate:'',deliveryDate:'',removed:false});
   }
 
-  removeScheduledActivity(scheduledActivity) {
-    return scheduledActivity.removed = true;
-  }
 
   addClassSchedule() {
     this.group.classSchedule.push({dayOfWeek:'',startTime:'',endTime:'',removed:false});
   }
 
-  removeClassSchedule(classSchedule) {
-    return classSchedule.removed = true;
-  }
 
   presentAlert(name) {
     const alert = this.alert.create({

@@ -23,19 +23,19 @@
 
     <ion-row>
       <ion-col class="buttonGroup" col-3 *ngIf="!isMember && !isTeacher">
-        <ion-icon style="color:green; font-size: 50px;" name="add-circle" (click)="addStudent()" ></ion-icon>
+        <ion-icon style="color:green;" name="add-circle" (click)="addStudent()" ></ion-icon>
       </ion-col>
 
       <ion-col class="buttonGroup" col-3 *ngIf="isMember && !isTeacher">
-        <ion-icon style="color:red; font-size: 50px;" name="exit" (click)="removeStudent()" ></ion-icon>
+        <ion-icon style="color:red;" name="exit" (click)="removeStudent()" ></ion-icon>
       </ion-col>
 
       <ion-col class="buttonGroup" col-3 *ngIf="isOwner">
-         <ion-icon style="color:red; font-size: 50px;" name="trash" (click)="removeGroup()" ></ion-icon>
+         <ion-icon style="color:red;" name="trash" (click)="removeGroup()" ></ion-icon>
       </ion-col>
 
       <ion-col class="buttonGroup" col-3 *ngIf="isOwner">
-         <ion-icon style="color:blue; font-size: 50px;" name="cog" (click)="enableEditGroup()"></ion-icon>
+         <ion-icon style="color:blue;" name="cog" (click)="enableEditGroup()"></ion-icon>
       </ion-col>
 
     </ion-row>

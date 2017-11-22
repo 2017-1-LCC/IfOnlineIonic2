@@ -89,25 +89,29 @@ export class CreateGroupPage {
     return item.removed = true;
   }
 
+/*
   removeProof(proof) {
     return proof.removed = true;
-  }
-
-  addScheduledActivity() {
-    this.group.scheduledActivity.push({description:'',sendDate:'',deliveryDate:'',removed:false});
   }
 
   removeScheduledActivity(scheduledActivity) {
     return scheduledActivity.removed = true;
   }
 
+  removeClassSchedule(classSchedule) {
+    return classSchedule.removed = true;
+  }
+*/
+
+  addScheduledActivity() {
+    this.group.scheduledActivity.push({description:'',sendDate:'',deliveryDate:'',removed:false});
+  }
+
+
   addClassSchedule() {
     this.group.classSchedule.push({dayOfWeek:'',startTime:'',endTime:'',removed:false});
   }
 
-  removeClassSchedule(classSchedule) {
-    return classSchedule.removed = true;
-  }
 
   presentAlert(name) {
     const alert = this.alert.create({
