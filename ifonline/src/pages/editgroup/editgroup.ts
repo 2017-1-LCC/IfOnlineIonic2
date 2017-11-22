@@ -102,6 +102,10 @@ export class EditGroupPage {
     return proof.removed = true;
   }
 
+  removeItem(item) {
+    return item.removed = true;
+  }
+
   addScheduledActivity() {
     this.group.scheduledActivity.push({description:'',sendDate:'',deliveryDate:'',removed:false});
   }

@@ -13,7 +13,7 @@
 
             <ion-item>
               <ion-label floating>Username</ion-label>
-              <ion-input type="text" [(ngModel)]="user.username" name="username" required></ion-input>
+              <ion-input type="text" [(ngModel)]="user.username" name="username" required (ngModelChange)="user.username = $event.toLocaleLowerCase()"></ion-input>
             </ion-item>
 
             <ion-item>
@@ -23,7 +23,7 @@
 
             <ion-item>
               <ion-label floating>Email</ion-label>
-              <ion-input type="email" [(ngModel)]="user.email" name="email" required></ion-input>
+              <ion-input type="email" [(ngModel)]="user.email" name="email" required (ngModelChange)="user.email = $event.toLocaleLowerCase()"></ion-input>
             </ion-item>
 
             <ion-item>
