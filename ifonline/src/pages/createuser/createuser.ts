@@ -36,7 +36,6 @@ export class CreateUserPage {
       }, (err) => {
         loading.dismiss();
         this.presentErrorAlert('Erro ao cadastrar usuário!');
-        console.log("error: ",err);
       })
   }
 
