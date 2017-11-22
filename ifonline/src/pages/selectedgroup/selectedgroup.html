@@ -17,7 +17,7 @@
         <p>Nome: {{group.admin.name}} </p>
         <p>E-mail: {{group.admin.email}} </p>
         <p>Turma: {{group.academicClass}}</p>
-        <p>Total de Alunos: {{group.students.length}} </p>
+        <p>Total de alunos no grupo: {{group.students.length}} </p>
       </div>
     </ion-row>
 
@@ -42,6 +42,20 @@
 
   </ion-grid>
 
+  <ion-grid>
+    <ion-list-header class="headerList">
+      Objetivo da disciplina
+    </ion-list-header>
+    <ion-list>
+      <ion-item text-wrap>
+        <ion-row>
+          <ion-col col-12>
+            <p>{{group.description}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
 
   <ion-grid>
     <ion-list-header class="headerList">

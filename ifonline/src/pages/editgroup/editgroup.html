@@ -33,7 +33,7 @@
             
             <ion-item>
               <ion-label floating>Encerramento da Disciplina</ion-label>
-              <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="group.dateEnd" name="dateEnd" required></ion-datetime>
+              <ion-datetime displayFormat="DD/MM/YYYY" [max]="2050" pickerFormat="DD/MMM/YYYY" [(ngModel)]="group.dateEnd" name="dateEnd" required></ion-datetime>
             </ion-item>
 
             <!-- HORÁRIO DAS AULAS -->
@@ -113,7 +113,7 @@
 
                 <ion-item>
                     <ion-label floating>Data da prova</ion-label>
-                    <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="proof.dateProof" name="proof.startTime{{i}}" required></ion-datetime>
+                    <ion-datetime displayFormat="DD/MM/YYYY" [max]="2050" pickerFormat="DD/MM/YYYY" [(ngModel)]="proof.dateProof" name="proof.startTime{{i}}" required></ion-datetime>
                 </ion-item>
 
                 <ion-item>
