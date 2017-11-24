@@ -20,22 +20,6 @@ export class AuthService {
     
     return this.http.post(this.baseUrl, user, options)
               .map(res => res.json())
-    /*
-    if(this.data) {
-      return Promise.resolve(this.data);
-    } 
-    return new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl, user, options)
-        .map(res => res.json())
-        .subscribe(data => {
-          this.data = data;
-          resolve(this.data);
-        }, err => {
-          reject(err)
-        });
-    })
-    */
-
   }
 
 
