@@ -16,7 +16,7 @@ import { LoginPage } from '../login/login';
 })
 export class HomePage {
 
-  loggedUser:any={_id:'', username:'', user:{typeUser:'',avatar:''}, groups:[]};
+  loggedUser:any={_id:'', username:'',email:'', user:{typeUser:'',avatar:''}, groups:[]};
   token:string;
   isTeacher:boolean;
 
@@ -74,7 +74,7 @@ export class HomePage {
       avatar:this.loggedUser.user.avatar,
       typeUser:this.loggedUser.user.typeUser,
       name:this.loggedUser.name,
-      email:this.loggedUser.email,
+      email:this.loggedUser.user.email,
       birthDate:this.loggedUser.birthDate,
       _id:this.loggedUser.user._id,
       idOther:this.loggedUser._id
