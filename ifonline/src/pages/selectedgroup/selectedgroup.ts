@@ -11,7 +11,7 @@ import { EditGroupPage } from '../editgroup/editgroup';
 
 export class SelectedGroupPage {
 
-  group:any={admin:{name:'',email:''},proof:[],students:[]};
+  group:any={admin:{name:'',user:{email:''}},proof:[],students:[]};
   idGroup:string='';
   idLoggedUser:string='';
   isOwner:boolean=false;

@@ -28,7 +28,7 @@
 
             <ion-item>
               <ion-label floating>Inicício da Disciplina</ion-label>
-              <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="group.dateStart" name="dateStart" required></ion-datetime>
+              <ion-datetime displayFormat="DD/MM/YYYY" [max]="2020" pickerFormat="DD/MMM/YYYY" [(ngModel)]="group.dateStart" name="dateStart" required></ion-datetime>
             </ion-item>
             
             <ion-item>
