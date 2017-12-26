@@ -15,6 +15,19 @@ export class MyApp {
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
+
+      // push notifications.
+      var notificationOpenedCallback = function(jsonData) {
+        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+      };
+  
+      window["plugins"].OneSignal
+        .startInit("bbf9cc6e-e23b-4ff1-af86-cf550f41c0bd", "814235675731")
+        .handleNotificationOpened(notificationOpenedCallback)
+        .endInit();
+  
+
+
     });
   }
 }
