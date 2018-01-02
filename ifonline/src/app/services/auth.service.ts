@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
+import { SERVER_URL } from './config.service';
 import 'rxjs/add/operator/map';
+
+
+let URL = SERVER_URL+'login'
 
 @Injectable()
 export class AuthService {
 
   baseUrl:string;
 
-  constructor(private http:Http) { 
-    this.baseUrl = 'https://ifonline.herokuapp.com/login';
-  }
+  constructor(private http:Http) { }
 
   login(data) {
     let headers = new Headers();
@@ -18,7 +20,7 @@ export class AuthService {
     let options = new RequestOptions({ headers: headers });
     const user = JSON.stringify(data);
     
-    return this.http.post(this.baseUrl, user, options)
+    return this.http.post(URL, user, options)
               .map(res => res.json())
   }
 
