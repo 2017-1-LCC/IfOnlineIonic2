@@ -130,7 +130,13 @@
       
       <ion-row>
         <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full (click)="update()" [disabled]="!newGroupForm.form.valid">Editar</button>
+          <button ion-button class="submit-btn" full (click)="update()" [disabled]="!newGroupForm.form.valid">Salvar</button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button color="danger" full (click)="cancel()">Cancelar</button>
         </ion-col>
       </ion-row>
       

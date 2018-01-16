@@ -1,8 +1,6 @@
-import { Component, SecurityContext } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, App } from 'ionic-angular';
 import { Storage } from "@ionic/storage";
-
-import {DomSanitizer} from '@angular/platform-browser';
 
 import { ProfileService } from '../../app/services/profile.service';
 import { CreateGroupPage } from '../creategroup/creategroup';
@@ -16,7 +14,7 @@ import { LoginPage } from '../login/login';
 })
 export class HomePage {
 
-  loggedUser:any={_id:'', username:'', user:{typeUser:'',avatar:''}, groups:[]};
+  loggedUser:any={_id:'', username:'',email:'', user:{typeUser:'',avatar:''}, groups:[]};
   token:string;
   isTeacher:boolean;
 
@@ -24,8 +22,7 @@ export class HomePage {
     private navCtrl: NavController, 
     private profileService:ProfileService,
     private storage: Storage,
-    private app:App,
-    private domSanitizer:DomSanitizer
+    private app:App
   ) {  }
 
   ionViewWillEnter() {
@@ -44,7 +41,6 @@ export class HomePage {
     this.profileService.loadProfile(this.token)
       .subscribe(result => {
         this.loggedUser = result;
-        this.loadProfileImage();
       }, err => {
         this.storage.remove('token');
         this.loggedUser = null;
@@ -74,7 +70,7 @@ export class HomePage {
       avatar:this.loggedUser.user.avatar,
       typeUser:this.loggedUser.user.typeUser,
       name:this.loggedUser.name,
-      email:this.loggedUser.email,
+      email:this.loggedUser.user.email,
       birthDate:this.loggedUser.birthDate,
       _id:this.loggedUser.user._id,
       idOther:this.loggedUser._id
@@ -82,10 +78,6 @@ export class HomePage {
     this.navCtrl.push(EditUserPage,{
       user:data
     });
-  }
-
-  loadProfileImage() {
-    return this.domSanitizer.sanitize(SecurityContext.URL, `data:image/png;base64,${this.loggedUser.user.avatar}`);
   }
 
   logout() {

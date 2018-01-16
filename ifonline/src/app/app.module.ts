@@ -17,11 +17,13 @@ import { CreateGroupPage } from '../pages/creategroup/creategroup';
 import { SelectedGroupPage } from '../pages/selectedgroup/selectedgroup';
 import { EditGroupPage } from '../pages/editgroup/editgroup';
 import { EditUserPage } from '../pages/edituser/edituser';
+import { TimelinePage } from '../pages/timeline/timeline';
 
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { ProfileService } from './services/profile.service'; 
 import { GroupService } from './services/groups.service';
+import { TimelineService } from './services/timeline.service';
 
 import { Camera } from '@ionic-native/camera';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -40,7 +42,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     CreateGroupPage,
     SelectedGroupPage,
     EditGroupPage,
-    EditUserPage
+    EditUserPage,
+    TimelinePage
   ],
   imports: [
     HttpModule,
@@ -61,7 +64,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     CreateGroupPage,
     SelectedGroupPage,
     EditGroupPage,
-    EditUserPage
+    EditUserPage,
+    TimelinePage
   ],
   providers: [
     StatusBar,
@@ -70,6 +74,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     UserService,
     ProfileService,
     GroupService,
+    TimelineService,
     Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler, deps:[Storage] }
   ]
