@@ -68,7 +68,7 @@ export class SelectedGroupPage {
         } else {
           this.isMember = false;
         }
-        
+        console.log("grupos: ",this.group);
       }, err => {
         console.log("erro ao buscar grupo full: ",err);
       })

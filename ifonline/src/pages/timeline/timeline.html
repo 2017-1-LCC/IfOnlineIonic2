@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content no-padding>
-  <ion-card *ngFor="let item of itens;">
+  <ion-card *ngFor="let item of itens;" (click)="selectGroup(item.group._id)">
     <ion-card-header>
       <b>{{item.group.discipline}}</b>
     </ion-card-header>
