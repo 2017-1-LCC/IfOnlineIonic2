@@ -12,12 +12,12 @@
           <ion-list>
 
             <ion-item>
-              <ion-label floating>Disciplina: </ion-label>
+              <ion-label floating>Disciplina</ion-label>
               <ion-input type="text" [(ngModel)]="group.discipline" name="disciple" required></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-label floating>Objetivo da Disciplina: </ion-label>
+              <ion-label floating>Objetivo da Disciplina</ion-label>
              <ion-textarea rows="4" type="text" [(ngModel)]="group.description" name="description" required></ion-textarea>
             </ion-item>
 
@@ -28,7 +28,7 @@
 
             <ion-item>
               <ion-label floating>Inicício da Disciplina</ion-label>
-              <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="group.dateStart" name="dateStart" required></ion-datetime>
+              <ion-datetime displayFormat="DD/MM/YYYY" [max]="2020" pickerFormat="DD/MMM/YYYY" [(ngModel)]="group.dateStart" name="dateStart" required></ion-datetime>
             </ion-item>
             
             <ion-item>
@@ -84,12 +84,12 @@
 
                 <ion-item>
                     <ion-label floating>Data de envio</ion-label>
-                    <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="scheduledActivity.sendDate" name="scheduledActivity.sendDate{{i}}" required></ion-datetime>
+                    <ion-datetime displayFormat="DD/MM/YYYY" [max]="2020" pickerFormat="DD/MM/YYYY" [(ngModel)]="scheduledActivity.sendDate" name="scheduledActivity.sendDate{{i}}" required></ion-datetime>
                 </ion-item>
 
                 <ion-item>
                     <ion-label floating>Data de entrega</ion-label>
-                    <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="scheduledActivity.deliveryDate" name="scheduledActivity.deliveryDate{{i}}" required></ion-datetime>
+                    <ion-datetime displayFormat="DD/MM/YYYY" [max]="2020" pickerFormat="DD/MM/YYYY" [(ngModel)]="scheduledActivity.deliveryDate" name="scheduledActivity.deliveryDate{{i}}" required></ion-datetime>
                 </ion-item>
 
               </div>
@@ -110,7 +110,7 @@
 
                 <ion-item>
                     <ion-label floating>Data da prova</ion-label>
-                    <ion-datetime displayFormat="DD/MMM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="proof.dateProof" name="proof.startTime{{i}}" required></ion-datetime>
+                    <ion-datetime displayFormat="DD/MMM/YYYY" [max]="2020" pickerFormat="DD/MMM/YYYY" [(ngModel)]="proof.dateProof" name="proof.startTime{{i}}" required></ion-datetime>
                 </ion-item>
 
                 <ion-item>

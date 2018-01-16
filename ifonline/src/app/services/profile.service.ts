@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { JwtHelper } from "angular2-jwt";
+import { SERVER_URL } from './config.service';
 import 'rxjs';
+
+let URL = SERVER_URL
 
 @Injectable()
 export class ProfileService {
 
-    baseUrl:string;
     typeUser:string;
     idUser:string;
     jwtHelper = new JwtHelper();
 
-    constructor(public http:Http) {
-
-    }
+    constructor(public http:Http) {  }
 
     loadProfile(token) {
         let headers = new Headers();
@@ -25,11 +25,11 @@ export class ProfileService {
         this.idUser = this.jwtHelper.decodeToken(token).idUser;
 
         if(this.typeUser === 'TEACHER') {
-            this.baseUrl = 'https://ifonline.herokuapp.com/findteacherbyuser/'+this.idUser;
+            URL = SERVER_URL+'findteacherbyuser/'+this.idUser;
         } else {
-            this.baseUrl = 'https://ifonline.herokuapp.com/findstudentbyuser/'+this.idUser;
+            URL = SERVER_URL+'findstudentbyuser/'+this.idUser;
         }
-        return this.http.get(this.baseUrl, options)
+        return this.http.get(URL, options)
             .map(res => res.json())
     }
 }

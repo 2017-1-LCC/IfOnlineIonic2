@@ -29,14 +29,18 @@ export class CreateUserPage {
 
     this.userService.create(this.user)
       .subscribe((result) => {
-        this.createdUser = result;
-        this.presentAlert(this.createdUser.name);
-        this.navCtrl.push(LoginPage);
-        loading.dismiss();
+        if(result.error) {
+          this.presentErrorAlert(result.message);
+          loading.dismiss();
+        } else {
+          this.createdUser = result;
+          this.presentAlert(this.createdUser.name);
+          this.navCtrl.push(LoginPage);
+          loading.dismiss();
+        }
       }, (err) => {
         loading.dismiss();
         this.presentErrorAlert('Erro ao cadastrar usuário!');
-        console.log("error: ",err);
       })
   }
 

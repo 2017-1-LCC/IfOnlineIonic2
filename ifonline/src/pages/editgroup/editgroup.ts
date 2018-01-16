@@ -98,32 +98,23 @@ export class EditGroupPage {
     this.group.proof.push({subjects:'',dateProof:'',value:'',removed:false});
   }
 
-/*
-  removeProof(proof) {
-    return proof.removed = true;
+  
+  addScheduledActivity() {
+    this.group.scheduledActivity.push({description:'',sendDate:'',deliveryDate:'',removed:false});
   }
-
-  removeScheduledActivity(scheduledActivity) {
-    return scheduledActivity.removed = true;
+  
+  
+  addClassSchedule() {
+    this.group.classSchedule.push({dayOfWeek:'',startTime:'',endTime:'',removed:false});
   }
-
-  removeClassSchedule(classSchedule) {
-    return classSchedule.removed = true;
-  }
-*/
+  
   removeItem(item) {
     return item.removed = true;
   }
 
-  addScheduledActivity() {
-    this.group.scheduledActivity.push({description:'',sendDate:'',deliveryDate:'',removed:false});
+  cancel() {
+    this.navCtrl.pop();
   }
-
-
-  addClassSchedule() {
-    this.group.classSchedule.push({dayOfWeek:'',startTime:'',endTime:'',removed:false});
-  }
-
 
   presentAlert(name) {
     const alert = this.alert.create({

@@ -11,7 +11,7 @@ import { EditGroupPage } from '../editgroup/editgroup';
 
 export class SelectedGroupPage {
 
-  group:any={admin:{name:'',email:''},proof:[],students:[]};
+  group:any={admin:{name:'',user:{email:''}},proof:[],students:[]};
   idGroup:string='';
   idLoggedUser:string='';
   isOwner:boolean=false;
@@ -68,7 +68,7 @@ export class SelectedGroupPage {
         } else {
           this.isMember = false;
         }
-        
+        console.log("grupos: ",this.group);
       }, err => {
         console.log("erro ao buscar grupo full: ",err);
       })

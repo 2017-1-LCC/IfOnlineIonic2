@@ -15,7 +15,7 @@
       <div class="infoGroup">
         <p></p>
         <p>Nome: {{group.admin.name}} </p>
-        <p>E-mail: {{group.admin.email}} </p>
+        <p>E-mail: {{group.admin.user.email}} </p>
         <p>Turma: {{group.academicClass}}</p>
         <p>Total de alunos no grupo: {{group.students.length}} </p>
       </div>
@@ -77,6 +77,30 @@
   </ion-grid>
 
   <ion-grid>
+      <ion-list-header class="headerList">
+        Atividades programadas
+      </ion-list-header>
+      <ion-list>
+          <ion-item *ngFor="let scheduledActivity of group.scheduledActivity" text-wrap>
+            <ion-row>
+              <b>{{scheduledActivity.description}}</b>
+            </ion-row>
+            <br/>
+            <ion-row>
+              <ion-col>
+                <p>Data de envio: {{scheduledActivity.sendDate | date:'dd-MM-yyyy'}}</p>
+              </ion-col>
+            </ion-row> 
+            <ion-row>
+              <ion-col>
+                  <p>Data de entrega: {{scheduledActivity.deliveryDate | date:'dd-MM-yyyy'}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+        </ion-list>
+    </ion-grid>
+
+  <ion-grid>
     <ion-list-header class="headerList">
       Provas
     </ion-list-header>
@@ -103,12 +127,12 @@
      Alunos
     </ion-list-header>
     <ion-list>
-      <ion-item *ngFor="let student of group.students" (click)="selectStudent(student)">
+      <ion-item text-wrap *ngFor="let student of group.students" (click)="selectStudent(student)">
         <ion-avatar item-start>
-          <img src="http://placehold.it/100x100">
+          <img [src]="student.user.avatar ? student.user.avatar : null">
         </ion-avatar>
-        <h2>{{student.name}}</h2>
-        <p>{{student.email}}</p>
+        <h2>{{student.name}} - <i>@{{student.user.username}}</i></h2>
+        <p>{{student.user.email}}</p>
       </ion-item>
     </ion-list>
   </ion-grid>

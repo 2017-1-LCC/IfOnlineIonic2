@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
+import { SERVER_URL } from './config.service';
 import 'rxjs/Rx';
+
+let URL = SERVER_URL
 
 @Injectable()
 export class GroupService {
@@ -8,9 +11,7 @@ export class GroupService {
   baseUrl:string;
   groups:any=[];
 
-  constructor(public http:Http) {
-    this.baseUrl = 'https://ifonline.herokuapp.com/';
-  }
+  constructor(public http:Http) { }
 
   updateGroup(token , data) {
     let headers = new Headers();
@@ -21,7 +22,7 @@ export class GroupService {
 
     const group = JSON.stringify(data);
 
-    return this.http.put(this.baseUrl+'studygroup/'+data._id, group, options)
+    return this.http.put(URL+'studygroup/'+data._id, group, options)
             .map( res => res.json())
   }
 
@@ -30,7 +31,7 @@ export class GroupService {
     headers.append('Authorization','Bearer '+token);
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.get(this.baseUrl+'findallinfogroup/'+idGroup, options)
+    return this.http.get(URL+'findallinfogroup/'+idGroup, options)
             .map(res => res.json())
   }
 
@@ -38,7 +39,7 @@ export class GroupService {
     let headers = new Headers();
     headers.append('Authorization','Bearer '+token);
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.baseUrl+'studygroup', options)
+    return this.http.get(URL+'studygroup', options)
               .map(res => {
                 this.groups = res.json();
                 return res.json()
@@ -60,7 +61,7 @@ export class GroupService {
 
     const group = JSON.stringify(data);
 
-    return this.http.post(this.baseUrl+'studygroup', group, options)
+    return this.http.post(URL+'studygroup', group, options)
             .map( res => res.json())
   }
 
@@ -69,7 +70,7 @@ export class GroupService {
     headers.append('Authorization','Bearer '+token);
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.baseUrl+'add/'+idStudent+'/ingroup/'+idGroup,null,options)
+    return this.http.post(URL+'add/'+idStudent+'/ingroup/'+idGroup,null,options)
               .map( res => res.json())
   }
 
@@ -77,7 +78,7 @@ export class GroupService {
     let headers = new Headers();
     headers.append('Authorization','Bearer '+token);
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.baseUrl+'remove/'+idStudent+'/ingroup/'+idGroup,null,options)
+    return this.http.post(URL+'remove/'+idStudent+'/ingroup/'+idGroup,null,options)
             .map( res => res.json())
   }
 
