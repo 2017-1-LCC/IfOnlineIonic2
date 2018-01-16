@@ -17,6 +17,7 @@ export class MyApp {
       splashScreen.hide();
 
       // push notifications.
+      /* removendo por enquanto
       var notificationOpenedCallback = function(jsonData) {
         console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
       };
@@ -25,7 +26,7 @@ export class MyApp {
         .startInit("7a8e84f1-3c47-499e-b95f-b303f5632b2e", "814235675731")
         .handleNotificationOpened(notificationOpenedCallback)
         .endInit();
-  
+      */
 
 
     });

@@ -3,7 +3,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { SERVER_URL } from './config.service';
 import 'rxjs';
 
-let URL = SERVER_URL + 'user/';
+let URL = SERVER_URL + 'user';
 
 @Injectable()
 export class UserService {
@@ -32,7 +32,7 @@ export class UserService {
 
     const user = JSON.stringify(data); 
 
-    return this.http.put(URL+data._id, user, options)
+    return this.http.put(URL+'/'+data._id, user, options)
               .map( res => res.json())
 
   }

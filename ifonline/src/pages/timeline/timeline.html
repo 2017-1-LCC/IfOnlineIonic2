@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar align-title="center">
+    <ion-title>Movimentação dos grupos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+  <ion-card *ngFor="let item of itens;">
+    <ion-card-header>
+      <b>{{item.group.discipline}}</b>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        {{item.description}}, <b>em:{{item.birthDate | date:'dd/MM/yy hh:mm'}}</b>
+      </p>
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>

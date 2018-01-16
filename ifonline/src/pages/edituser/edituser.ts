@@ -97,6 +97,7 @@ export class EditUserPage {
 
     this.camera.getPicture(cameraOptions)
       .then((file_uri) => {
+        
         this.loggedUser.avatar = file_uri;
         this.loadProfileImage();
       }, 
@@ -122,7 +123,12 @@ export class EditUserPage {
   }
 
   loadProfileImage() {
-    return this.domSanitizer.sanitize(SecurityContext.URL, `data:image/png;base64,${this.loggedUser.avatar}`);
+    const regex = new RegExp("^(http|https)://", "i");
+    if(regex.test(this.loggedUser.avatar)) {
+      return this.loggedUser.avatar;
+    } else {
+      return this.domSanitizer.sanitize(SecurityContext.URL, `data:image/png;base64,${this.loggedUser.avatar}`);
+    } 
   }
 
 }

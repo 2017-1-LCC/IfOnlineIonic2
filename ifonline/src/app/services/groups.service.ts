@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions, Headers } from '@angular/http';3
+import { Http, RequestOptions, Headers } from '@angular/http';
 import { SERVER_URL } from './config.service';
 import 'rxjs/Rx';
 
