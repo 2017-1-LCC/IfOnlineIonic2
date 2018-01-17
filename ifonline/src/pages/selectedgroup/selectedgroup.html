@@ -6,11 +6,26 @@
 
 <ion-content padding>
 
-  <ion-grid style="background-color: cornflowerblue; height:35%; color:white">
+  <ion-grid style="background-color: cornflowerblue; height:25%; color:white">
+
+    <ion-row>
+      <ion-col col-3>
+          <img src="http://via.placeholder.com/250x250" class="image circle-pic" />
+      </ion-col>
+      <ion-col>
+        <div><p style="color:black;">{{group.discipline}}</p></div> 
+        <div>Prof: {{group.admin.name}}</div> 
+        <div>E-mail: {{group.admin.user.email}}</div> 
+        <div>Total de alunos no grupo: {{group.students.length}}</div> 
+      </ion-col>
+    </ion-row>
+
+    <!--
     <ion-row justify-content-center align-items-center>
         <p style="color:black;">{{group.discipline}}</p>
     </ion-row>
-
+    
+    
     <ion-row>
       <div class="infoGroup">
         <p></p>
@@ -20,7 +35,9 @@
         <p>Total de alunos no grupo: {{group.students.length}} </p>
       </div>
     </ion-row>
+  -->
 
+  <!--
     <ion-row>
       <ion-col class="buttonGroup" col-3 *ngIf="!isMember && !isTeacher">
         <ion-icon style="color:green;" name="add-circle" (click)="addStudent()" ></ion-icon>
@@ -39,7 +56,17 @@
       </ion-col>
 
     </ion-row>
+  -->
 
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6>
+          <button ion-button color="secondary" *ngIf="!isMember && !isTeacher" (click)="addStudent()" >Entrar no grupo</button>
+          <button ion-button color="danger" *ngIf="isMember && !isTeacher" (click)="removeStudent()">Sair do grupo</button>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 
   <ion-grid>
@@ -57,6 +84,102 @@
     </ion-list>
   </ion-grid>
 
+  <div>
+      <ion-segment [(ngModel)]="classSchedule">
+        <ion-segment-button value="classSchedule">
+          Aulas
+        </ion-segment-button>
+        <ion-segment-button value="scheduledActivity">
+          Atividades
+        </ion-segment-button>
+        <ion-segment-button value="proof">
+          Provas
+        </ion-segment-button>
+        <ion-segment-button value="students">
+          Alunos
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+    
+    <div [ngSwitch]="classSchedule">
+      <ion-list *ngSwitchCase="'scheduledActivity'">
+        <ion-item *ngFor="let classSchedule of group.classSchedule" >
+          <ion-row>
+            <ion-col col-4>
+              <p>{{classSchedule.dayOfWeek}}</p>
+            </ion-col>
+            <ion-col col-8>
+              <p>Inicia ás: {{classSchedule.startTime}}</p>
+              <p>Termina ás: {{classSchedule.endTime}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-list>
+    
+      <ion-list *ngSwitchCase="'classSchedule'">
+        <ion-item *ngFor="let scheduledActivity of group.scheduledActivity" text-wrap>
+          <ion-row>
+            <b>{{scheduledActivity.description}}</b>
+          </ion-row>
+          <br/>
+          <ion-row>
+            <ion-col>
+              <p>Data de envio: {{scheduledActivity.sendDate | date:'dd-MM-yyyy'}}</p>
+            </ion-col>
+          </ion-row> 
+          <ion-row>
+            <ion-col>
+                <p>Data de entrega: {{scheduledActivity.deliveryDate | date:'dd-MM-yyyy'}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'proof'">
+        <ion-item *ngFor="let proof of group.proof" text-wrap>
+          <ion-row>
+            <b>{{proof.subjects}}</b>
+          </ion-row>
+          <br/>
+          <ion-row>
+            <ion-col col-8>
+              <p>Data: {{proof.dateProof | date:'dd-MM-yyyy'}}</p>
+            </ion-col>
+            <ion-col col-4>
+              <p>Valor: {{proof.value}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'students'">
+        <ion-item text-wrap *ngFor="let student of group.students" (click)="selectStudent(student)">
+          <ion-avatar item-start>
+            <img [src]="student.user.avatar ? student.user.avatar : null">
+          </ion-avatar>
+          <h2>{{student.name}} - <i>@{{student.user.username}}</i></h2>
+          <p>{{student.user.email}}</p>
+        </ion-item>
+      </ion-list>
+
+    </div>
+
+    <ion-fab right bottom *ngIf="isOwner">
+        <button ion-fab color="light"> <ion-icon name="attach"></ion-icon></button>
+        <ion-fab-list side="top">
+          <ion-label class="novoGrupo">Remover</ion-label>
+          <button class="mycss" ion-fab (click)="removeGroup()">
+            <ion-icon name="book"></ion-icon>
+          </button>
+          <ion-label class="config" >Editar</ion-label>
+          <button ion-fab (click)="enableEditGroup()">
+            <ion-icon name="options"></ion-icon>
+          </button>
+        </ion-fab-list>   
+      </ion-fab>
+
+
+<!--
   <ion-grid>
     <ion-list-header class="headerList">
       Horário das Aulas
@@ -136,5 +259,5 @@
       </ion-item>
     </ion-list>
   </ion-grid>
-
+-->
 </ion-content>
