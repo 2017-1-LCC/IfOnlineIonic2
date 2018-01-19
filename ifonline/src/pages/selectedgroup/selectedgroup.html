@@ -24,45 +24,7 @@
         </div> 
       </ion-col>
     </ion-row>
-
-    <!--
-    <ion-row justify-content-center align-items-center>
-        <p style="color:black;">{{group.discipline}}</p>
-    </ion-row>
     
-    
-    <ion-row>
-      <div class="infoGroup">
-        <p></p>
-        <p>Nome: {{group.admin.name}} </p>
-        <p>E-mail: {{group.admin.user.email}} </p>
-        <p>Turma: {{group.academicClass}}</p>
-        <p>Total de alunos no grupo: {{group.students.length}} </p>
-      </div>
-    </ion-row>
-  -->
-
-  <!--
-    <ion-row>
-      <ion-col class="buttonGroup" col-3 *ngIf="!isMember && !isTeacher">
-        <ion-icon style="color:green;" name="add-circle" (click)="addStudent()" ></ion-icon>
-      </ion-col>
-
-      <ion-col class="buttonGroup" col-3 *ngIf="isMember && !isTeacher">
-        <ion-icon style="color:red;" name="exit" (click)="removeStudent()" ></ion-icon>
-      </ion-col>
-
-      <ion-col class="buttonGroup" col-3 *ngIf="isOwner">
-         <ion-icon style="color:red;" name="trash" (click)="removeGroup()" ></ion-icon>
-      </ion-col>
-
-      <ion-col class="buttonGroup" col-3 *ngIf="isOwner">
-         <ion-icon style="color:blue;" name="cog" (click)="enableEditGroup()"></ion-icon>
-      </ion-col>
-
-    </ion-row>
-  -->
-
   </ion-grid>
 
   <ion-grid>
@@ -149,7 +111,7 @@
     <div [ngSwitch]="classSchedule">
     
       <ion-list *ngSwitchCase="'comments'" >
-        <form #newCommentForm="ngForm" *ngIf="isMember">
+        <form #newCommentForm="ngForm" *ngIf="isMember || isOwner">
             <ion-item>
               <ion-label floating>Digite seu comentário</ion-label>
               <ion-textarea rows="4" type="text" [(ngModel)]="comment" name="comment" required></ion-textarea>
@@ -163,7 +125,7 @@
                 <img *ngIf="comment.user.avatar" [src]="comment.user.avatar">
                 <img *ngIf="!comment.user.avatar" src="assets/imgs/no_user.png">
               </ion-avatar>
-              <h2>{{comment.user.username}}</h2>
+              <h2>{{comment.user.username}} - <i>@{{comment.user.username}}</i></h2>
               <h4>{{comment.dateComment | date:'dd/MM/yy hh:mm'}}</h4>
               <p>{{comment.content}}</p>
             </ion-item>
@@ -175,19 +137,6 @@
             </ion-item-options>
           </ion-item-sliding>
         </ion-list>
-          <!--
-        <ion-item *ngFor="let comment of group.comments" text-wrap>
-          <ion-row>
-              <ion-col col-4>
-                  <img [src]="comment.user.avatar"/>
-              </ion-col>
-              <ion-col col-8>
-                <p>{{comment.content}}</p>
-              </ion-col>
-          </ion-row>
-            <ion-textarea rows="4" type="text" [(ngModel)]="comment.content" disabled></ion-textarea>
-          </ion-item>
-        -->
       </ion-list>
 
       <ion-list *ngSwitchCase="'proof'">
@@ -221,18 +170,18 @@
     </div>
 
     <ion-fab right bottom *ngIf="isOwner">
-        <button ion-fab color="light"> <ion-icon name="attach"></ion-icon></button>
-        <ion-fab-list side="top">
-          <ion-label class="novoGrupo">Remover</ion-label>
-          <button class="mycss" ion-fab (click)="removeGroup()">
-            <ion-icon name="book"></ion-icon>
-          </button>
-          <ion-label class="config" >Editar</ion-label>
-          <button ion-fab (click)="enableEditGroup()">
-            <ion-icon name="options"></ion-icon>
-          </button>
-        </ion-fab-list>   
-      </ion-fab>
+      <button ion-fab color="light"> <ion-icon name="attach"></ion-icon></button>
+      <ion-fab-list side="top">
+        <ion-label class="novoGrupo">Remover</ion-label>
+        <button class="mycss" ion-fab (click)="removeGroup()">
+          <ion-icon name="book"></ion-icon>
+        </button>
+        <ion-label class="config" >Editar</ion-label>
+        <button ion-fab (click)="enableEditGroup()">
+          <ion-icon name="options"></ion-icon>
+        </button>
+      </ion-fab-list>   
+    </ion-fab>
 
 
 <!--

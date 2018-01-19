@@ -39,8 +39,6 @@ export class SelectedGroupPage {
     this.loadGroup();
   }  
 
-
-
   ngOnInit() {
     this.storage.get('token')
       .then((token) => {
@@ -173,10 +171,6 @@ export class SelectedGroupPage {
         console.log("erro ao adicionar comentário: ",err);
         this.presentErrorAlert('não foi possível inserir comentário');
       })
-
-    //console.log("comentario: ",comment);
-    
-    loading.dismiss();
   }
 
   removerComment(comment) {

@@ -1,26 +1,26 @@
-<!-- <ion-header>
-  <ion-navbar>
-    <ion-title> Profile </ion-title>
-  </ion-navbar>
-</ion-header> -->
-
 <ion-content>
+
   <ion-grid class="headerGrid">
     
-    <ion-row class="header">
-      <ion-col col-4>
+    <ion-row>
+
+      <ion-col col-12>
         <ion-avatar>
-          <img [src]="loggedUser.user.avatar" class="image circle-pic" />
+          <img *ngIf="loggedUser.user.avatar" [src]="loggedUser.user.avatar"  class="circle-pic" />
+          <img *ngIf="!loggedUser.user.avatar" src="assets/imgs/no_user.png" class="circle-pic" />
         </ion-avatar>
       </ion-col>
 
-      <ion-col col-8>
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col col-12>
         <div class="titleHeader">
           <h4>{{loggedUser.name}}</h4>
           <p>@{{loggedUser.user.username}}</p>
         </div> 
       </ion-col>
-
     </ion-row>
 
   </ion-grid>
