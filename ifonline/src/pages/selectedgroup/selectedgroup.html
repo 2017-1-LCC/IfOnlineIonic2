@@ -16,7 +16,12 @@
         <div><p style="color:black;">{{group.discipline}}</p></div> 
         <div>Prof: {{group.admin.name}}</div> 
         <div>E-mail: {{group.admin.user.email}}</div> 
-        <div>Total de alunos no grupo: {{group.students.length}}</div> 
+        <div>
+          <ion-icon name="people"></ion-icon>
+          <span>{{group.students.length}}</span>
+          <ion-icon name="heart"></ion-icon> 
+          <span>{{group.likers ? group.likers.length : 0}}</span>
+        </div> 
       </ion-col>
     </ion-row>
 
@@ -84,13 +89,53 @@
     </ion-list>
   </ion-grid>
 
-  <div>
+  <ion-grid *ngIf="group.classSchedule.length">
+    <ion-list-header class="headerList">
+        Horário das aulas
+    </ion-list-header>
+    <ion-list>
+      <ion-item *ngFor="let classSchedule of group.classSchedule" >
+        <ion-row>
+          <ion-col col-4>
+            <p>{{classSchedule.dayOfWeek}}</p>
+          </ion-col>
+          <ion-col col-8>
+            <p>Inicia ás: {{classSchedule.startTime}}</p>
+            <p>Termina ás: {{classSchedule.endTime}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+
+  <ion-grid *ngIf="group.scheduledActivity.length">
+    <ion-list-header class="headerList">
+      Atividades programadas
+    </ion-list-header>
+    <ion-list>
+      <ion-item *ngFor="let scheduledActivity of group.scheduledActivity" text-wrap>
+        <ion-row>
+          <b>{{scheduledActivity.description}}</b>
+        </ion-row>
+        <br/>
+        <ion-row>
+          <ion-col>
+            <p>Data de envio: {{scheduledActivity.sendDate | date:'dd-MM-yyyy'}}</p>
+          </ion-col>
+        </ion-row> 
+        <ion-row>
+          <ion-col>
+              <p>Data de entrega: {{scheduledActivity.deliveryDate | date:'dd-MM-yyyy'}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+
+    <div>
       <ion-segment [(ngModel)]="classSchedule">
-        <ion-segment-button value="classSchedule">
-          Aulas
-        </ion-segment-button>
-        <ion-segment-button value="scheduledActivity">
-          Atividades
+        <ion-segment-button value="comments">
+          Comentários
         </ion-segment-button>
         <ion-segment-button value="proof">
           Provas
@@ -102,37 +147,47 @@
     </div>
     
     <div [ngSwitch]="classSchedule">
-      <ion-list *ngSwitchCase="'scheduledActivity'">
-        <ion-item *ngFor="let classSchedule of group.classSchedule" >
-          <ion-row>
-            <ion-col col-4>
-              <p>{{classSchedule.dayOfWeek}}</p>
-            </ion-col>
-            <ion-col col-8>
-              <p>Inicia ás: {{classSchedule.startTime}}</p>
-              <p>Termina ás: {{classSchedule.endTime}}</p>
-            </ion-col>
-          </ion-row>
-        </ion-item>
-      </ion-list>
     
-      <ion-list *ngSwitchCase="'classSchedule'">
-        <ion-item *ngFor="let scheduledActivity of group.scheduledActivity" text-wrap>
+      <ion-list *ngSwitchCase="'comments'" >
+        <form #newCommentForm="ngForm" *ngIf="isMember">
+            <ion-item>
+              <ion-label floating>Digite seu comentário</ion-label>
+              <ion-textarea rows="4" type="text" [(ngModel)]="comment" name="comment" required></ion-textarea>
+            </ion-item>
+            <button ion-button class="submit-btn" full (click)="sendComment(comment)" [disabled]="!newCommentForm.form.valid">Comentar</button>
+        </form>
+        <ion-list>
+          <ion-item-sliding *ngFor="let comment of group.comments | orderBy:'dateComment'">
+            <ion-item text-wrap>
+              <ion-avatar item-start>
+                <img *ngIf="comment.user.avatar" [src]="comment.user.avatar">
+                <img *ngIf="!comment.user.avatar" src="assets/imgs/no_user.png">
+              </ion-avatar>
+              <h2>{{comment.user.username}}</h2>
+              <h4>{{comment.dateComment | date:'dd/MM/yy hh:mm'}}</h4>
+              <p>{{comment.content}}</p>
+            </ion-item>
+            <ion-item-options side="right">
+            <button ion-button color="danger" *ngIf="comment.user._id === userComment" (click)="removerComment(comment)">
+              <ion-icon name="trash"></ion-icon>
+              excluir
+            </button>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+          <!--
+        <ion-item *ngFor="let comment of group.comments" text-wrap>
           <ion-row>
-            <b>{{scheduledActivity.description}}</b>
+              <ion-col col-4>
+                  <img [src]="comment.user.avatar"/>
+              </ion-col>
+              <ion-col col-8>
+                <p>{{comment.content}}</p>
+              </ion-col>
           </ion-row>
-          <br/>
-          <ion-row>
-            <ion-col>
-              <p>Data de envio: {{scheduledActivity.sendDate | date:'dd-MM-yyyy'}}</p>
-            </ion-col>
-          </ion-row> 
-          <ion-row>
-            <ion-col>
-                <p>Data de entrega: {{scheduledActivity.deliveryDate | date:'dd-MM-yyyy'}}</p>
-            </ion-col>
-          </ion-row>
-        </ion-item>
+            <ion-textarea rows="4" type="text" [(ngModel)]="comment.content" disabled></ion-textarea>
+          </ion-item>
+        -->
       </ion-list>
 
       <ion-list *ngSwitchCase="'proof'">
@@ -155,7 +210,8 @@
       <ion-list *ngSwitchCase="'students'">
         <ion-item text-wrap *ngFor="let student of group.students" (click)="selectStudent(student)">
           <ion-avatar item-start>
-            <img [src]="student.user.avatar ? student.user.avatar : null">
+            <img *ngIf="student.user.avatar" [src]="student.user.avatar">
+            <img *ngIf="!student.user.avatar" src="assets/imgs/no_user.png">
           </ion-avatar>
           <h2>{{student.name}} - <i>@{{student.user.username}}</i></h2>
           <p>{{student.user.email}}</p>

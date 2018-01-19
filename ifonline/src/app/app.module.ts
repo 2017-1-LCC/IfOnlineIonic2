@@ -25,6 +25,8 @@ import { ProfileService } from './services/profile.service';
 import { GroupService } from './services/groups.service';
 import { TimelineService } from './services/timeline.service';
 
+import { orderDateByPipe } from './pipes/filter-pipe';
+
 import { Camera } from '@ionic-native/camera';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -43,7 +45,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SelectedGroupPage,
     EditGroupPage,
     EditUserPage,
-    TimelinePage
+    TimelinePage,
+    orderDateByPipe
   ],
   imports: [
     HttpModule,

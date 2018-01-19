@@ -65,6 +65,23 @@ export class GroupService {
             .map( res => res.json())
   }
 
+  addComment(token, data, idGroup) {
+    let headers = new Headers();
+    headers.append('Authorization','Bearer '+token);
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(URL+'addComment/'+idGroup,data,options)
+              .map( res => res.json())
+  }
+
+  removeComment(token, idComment, idGroup) {
+    let headers = new Headers();
+    headers.append('Authorization','Bearer '+token);
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(URL+'remove/'+idGroup+'/comment/'+idComment,null,options)
+            .map( res => res.json())
+  }
+
   addStudent(token, idStudent, idGroup) {
     let headers = new Headers();
     headers.append('Authorization','Bearer '+token);

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavParams, AlertController, LoadingController, NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { GroupService } from '../../app/services/groups.service';
+import { ProfileService } from '../../app/services/profile.service';
 import { EditGroupPage } from '../editgroup/editgroup';
 
 @Component({
@@ -11,13 +12,15 @@ import { EditGroupPage } from '../editgroup/editgroup';
 
 export class SelectedGroupPage {
 
-  group:any={admin:{name:'',user:{email:''}},proof:[],students:[]};
+  group:any={admin:{name:'',user:{email:''}},proof:[],students:[],scheduledActivity:[], classSchedule:[]};
   idGroup:string='';
   idLoggedUser:string='';
+  userComment:any;
   isOwner:boolean=false;
   isMember:boolean=false;
   token:string='';
   isTeacher:boolean=false;
+  comment:string='';
 
   constructor(
     private navParams: NavParams,
@@ -25,7 +28,8 @@ export class SelectedGroupPage {
     private storage:Storage,
     private alertCtrl:AlertController,
     private loadingCtrl:LoadingController,
-    private navCtrl:NavController
+    private navCtrl:NavController,
+    private profileService:ProfileService
   ) 
   {
       
@@ -35,6 +39,8 @@ export class SelectedGroupPage {
     this.loadGroup();
   }  
 
+
+
   ngOnInit() {
     this.storage.get('token')
       .then((token) => {
@@ -42,6 +48,7 @@ export class SelectedGroupPage {
         this.idGroup = this.navParams.data.idGroup;
         this.idLoggedUser = this.navParams.data.idLoggedUser;
         this.isTeacher = this.navParams.data.isTeacher;
+        this.userComment = this.profileService.getIdLoggedUser(this.token);
         this.loadGroup();
       })
       .catch( err => {
@@ -54,7 +61,7 @@ export class SelectedGroupPage {
       .subscribe(result => {
 
         if(result.admin._id === this.idLoggedUser) {
-          this.group = result;
+          this.group = result
           this.isOwner = true;
         } else {
           this.group = result;
@@ -142,6 +149,51 @@ export class SelectedGroupPage {
       buttons: ['Dismiss']
     });
     alert.present();
+  }
+
+  sendComment(comment) {
+
+    let commentFormated = {
+      user:this.userComment,
+      content:comment,
+      removed:false
+    }
+
+    let loading = this.loadingCtrl.create({content:'Enviando comentáro...'});
+    loading.present();
+
+    this.groupService.addComment(this.token, commentFormated, this.idGroup)
+      .subscribe(result => {
+        this.comment = '';
+        this.loadGroup();
+        loading.dismiss();
+        this.presentSuccessAlert('Novo comentário adicionado ao grupo');
+      }, err => {
+        loading.dismiss();
+        console.log("erro ao adicionar comentário: ",err);
+        this.presentErrorAlert('não foi possível inserir comentário');
+      })
+
+    //console.log("comentario: ",comment);
+    
+    loading.dismiss();
+  }
+
+  removerComment(comment) {
+    console.log("comment: ",comment);
+    let loading = this.loadingCtrl.create({content:'Removendo comentário...'});
+    loading.present();
+
+    this.groupService.removeComment(this.token, comment._id, this.idGroup)
+      .subscribe(() => {
+        this.loadGroup();
+        loading.dismiss();
+        this.presentSuccessAlert('Comentário removido com sucesso');
+      }, err => {
+        loading.dismiss();
+        console.log("erro ao remover comentário: ",err);
+        this.presentErrorAlert('não foi possível remover comentário');
+      })
   }
   
 }

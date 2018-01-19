@@ -32,4 +32,9 @@ export class ProfileService {
         return this.http.get(URL, options)
             .map(res => res.json())
     }
+
+    getIdLoggedUser(token) {
+        return this.jwtHelper.decodeToken(token).idUser;
+    }
+
 }
